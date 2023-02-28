@@ -13,10 +13,14 @@ import java.lang.Integer;
 
 class ReflectionTest {
 
+    private final String METHOD_NAME = "setLongPrimitiveValue";
+
+    private final Class<TestObject> CLASS_FOR_METHOD_SEARCHING = TestObject.class;
+
     @Test
     void valueIntPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
 
-        Method method = MethodsHandler.getMethod(int.class);
+        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,int.class);
         Method expectedMethod = getMethodForTests(int.class);
         if (method!=null&&expectedMethod!=null){
             int value = 52;
@@ -37,7 +41,7 @@ class ReflectionTest {
 
     @Test
     void valueLongPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(long.class);
+        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,long.class);
         Method expectedMethod = getMethodForTests(long.class);
         if (method!=null&&expectedMethod!=null) {
             System.out.println("Type: long "
@@ -60,7 +64,7 @@ class ReflectionTest {
 
     @Test
     void valueCharPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(char.class);
+        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,char.class);
         Method expectedMethod = getMethodForTests(char.class);
         if (method!=null&&expectedMethod!=null){
             char [] values = {1, '5', 'e'};
@@ -84,7 +88,7 @@ class ReflectionTest {
 
     @Test
     void valueBytePrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(byte.class);
+        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,byte.class);
         Method expectedMethod = getMethodForTests(byte.class);
         if (method!=null&&expectedMethod!=null){
             byte [] values = {1, '5', 'e',Byte.parseByte("19")};
@@ -105,7 +109,7 @@ class ReflectionTest {
 
     @Test
     void valueShortPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(short.class);
+        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,short.class);
         Method expectedMethod = getMethodForTests(short.class);
         if (method!=null&&expectedMethod!=null){
             short [] values = {1, '5', 'e',Short.parseShort("19")};
@@ -127,7 +131,7 @@ class ReflectionTest {
     @ParameterizedTest
     @MethodSource("provideObjects")
     void valueObjectTest(Object object) throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(object.getClass());
+        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,object.getClass());
         Method expectedMethod = getMethodForTests(object.getClass());
         if(expectedMethod!=null&&method!=null) {
             TestObject testObject = new TestObject();
@@ -161,7 +165,7 @@ class ReflectionTest {
     @ParameterizedTest
     @MethodSource("provideCLassTypes")
     void methodsHandlerTest(Class<?> classType){
-        Method provided = MethodsHandler.getMethod(classType);
+        Method provided = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,classType);
         Method method = getMethodForTests(classType);
         if(method!=null){
             System.out.println("СlassType: " + classType.getName() + " Expected: " + method.getParameterTypes()[0] + " Provided: " + method.getParameterTypes()[0]);
@@ -211,7 +215,7 @@ class ReflectionTest {
     @ParameterizedTest
     @MethodSource("provideCLassTypes")
     void parametersNumberMethodsHandlerTest(Class<?> classType){
-        Method method = MethodsHandler.getMethod(classType);
+        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,classType);
         Method expected = getMethodForTests(classType);
         if(method!=null&&expected!=null){
             Assertions.assertEquals(expected.getParameterTypes().length, method.getParameterTypes().length);

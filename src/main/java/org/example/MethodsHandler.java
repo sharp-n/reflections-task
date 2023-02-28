@@ -10,10 +10,10 @@ public class MethodsHandler {
 
     private MethodsHandler(){}
 
-    public static Method getMethod(Class<?> valueType) {
-        Class<TestObject> testObjectClass = TestObject.class;
-        List<Method> methods = Arrays.stream(testObjectClass.getMethods())
-                .filter(method -> "setLongPrimitiveValue".equals(method.getName())&& method.getParameterTypes().length == 1)
+    public static Method getMethod(String methodName, Class<?> classForMethodSearching, Class<?> valueType) {
+//        Class<TestObject> testObjectClass = TestObject.class;
+        List<Method> methods = Arrays.stream(classForMethodSearching.getMethods())
+                .filter(method -> methodName.equals(method.getName())&& method.getParameterTypes().length == 1)
                 .collect(Collectors.toList());
         for (Method method : methods) {
             if (method.getParameterTypes()[0].equals(valueType)) {
@@ -32,12 +32,12 @@ public class MethodsHandler {
         return null;
     }
 
-    public static TestObject invokeMethod(Class<?> classType, Object value) throws InvocationTargetException, IllegalAccessException {
-        TestObject testObject = new TestObject();
-        Method method = MethodsHandler.getMethod(classType);
-        method.invoke(testObject,value);
-        return testObject;
-    }
+//    public static TestObject invokeMethod(Class<?> classType, Object value) throws InvocationTargetException, IllegalAccessException {
+//        TestObject testObject = new TestObject();
+//        Method method = MethodsHandler.getMethod(classType);
+//        method.invoke(testObject,value);
+//        return testObject;
+//    }
 
     static TestObject setWithSetterMethod(Method method, int value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
