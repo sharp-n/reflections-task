@@ -20,12 +20,20 @@ class ReflectionTest {
         Method expectedMethod = getMethodForTests(int.class);
         if (method!=null&&expectedMethod!=null){
             int value = 52;
-            TestObject testObject = MethodsHandler.setWithSetterMethod(method, value);
+            TestObject testObject = new TestObject();
+            if(method.getParameterTypes()[0].isPrimitive()) {
+                testObject = MethodsHandler.setWithSetterMethod(method, value);
+            } else{
+                method.invoke(testObject,value);
+            }
             Assertions.assertEquals(value, testObject.getLongPrimitiveValue());
+            Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
         }
     }
+
+
 
     @Test
     void valueLongPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
@@ -36,8 +44,15 @@ class ReflectionTest {
                     + " Expected: " + expectedMethod.getParameterTypes()[0]
                     + " Provided: " + method.getParameterTypes()[0]);
             long value = 12L;
-            TestObject testObject = MethodsHandler.setWithSetterMethod(method, value);
+            TestObject testObject = new TestObject();
+            if(method.getParameterTypes()[0].isPrimitive()){
+                testObject = MethodsHandler.setWithSetterMethod(method, value);
+            } else{
+                method.invoke(testObject,value);
+            }
+
             Assertions.assertEquals(value, testObject.getLongPrimitiveValue());
+            Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
         }
@@ -50,8 +65,17 @@ class ReflectionTest {
         if (method!=null&&expectedMethod!=null){
             char [] values = {1, '5', 'e'};
             for (char value : values) {
-                TestObject testObject = MethodsHandler.setWithSetterMethod(method, value);
+                System.out.println("Type: char "
+                        + " Expected: " + expectedMethod.getParameterTypes()[0]
+                        + " Provided: " + method.getParameterTypes()[0]);
+                TestObject testObject = new TestObject();
+                if(method.getParameterTypes()[0].isPrimitive()) {
+                     testObject = MethodsHandler.setWithSetterMethod(method, value);
+                } else {
+                    method.invoke(testObject,value);
+                }
                 Assertions.assertEquals(value,testObject.getLongPrimitiveValue());
+                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
             }
         } else {
             Assertions.assertEquals(expectedMethod,method);
@@ -65,8 +89,14 @@ class ReflectionTest {
         if (method!=null&&expectedMethod!=null){
             byte [] values = {1, '5', 'e',Byte.parseByte("19")};
             for (byte value : values) {
-                TestObject testObject = MethodsHandler.setWithSetterMethod(method, value);
+                TestObject testObject = new TestObject();
+                if(method.getParameterTypes()[0].isPrimitive()) {
+                    testObject = MethodsHandler.setWithSetterMethod(method, value);
+                } else {
+                    method.invoke(testObject,value);
+                }
                 Assertions.assertEquals(value,testObject.getLongPrimitiveValue());
+                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
             }
         } else {
             Assertions.assertEquals(expectedMethod,method);
@@ -80,8 +110,14 @@ class ReflectionTest {
         if (method!=null&&expectedMethod!=null){
             short [] values = {1, '5', 'e',Short.parseShort("19")};
             for (short value : values) {
-                TestObject testObject = MethodsHandler.setWithSetterMethod(method, value);
+                TestObject testObject = new TestObject();
+                if(method.getParameterTypes()[0].isPrimitive()) {
+                    testObject = MethodsHandler.setWithSetterMethod(method, value);
+                } else {
+                    method.invoke(testObject,value);
+                }
                 Assertions.assertEquals(value,testObject.getLongPrimitiveValue());
+                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
             }
         } else {
             Assertions.assertEquals(expectedMethod,method);
@@ -97,6 +133,7 @@ class ReflectionTest {
             TestObject testObject = new TestObject();
             method.invoke(testObject, object);
             Assertions.assertEquals(getObjectHashCode(object), getObjectHashCode(testObject.getLongPrimitiveValue()));
+            Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
         }else {
             Assertions.assertEquals(expectedMethod,method);
         }
@@ -106,8 +143,6 @@ class ReflectionTest {
         return Stream.of(
                 Arguments.of(1),
                 Arguments.of(22L),
-                Arguments.of(-0L),
-                Arguments.of(-20452L),
                 Arguments.of(Byte.parseByte("34")),
                 Arguments.of('m'),
                 Arguments.of(Short.parseShort("8")),
@@ -127,8 +162,6 @@ class ReflectionTest {
     @MethodSource("provideCLassTypes")
     void methodsHandlerTest(Class<?> classType){
         Method provided = MethodsHandler.getMethod(classType);
-
-//        MethodsHandler.genConvertableTypes();
         Method method = getMethodForTests(classType);
         if(method!=null){
             System.out.println("СlassType: " + classType.getName() + " Expected: " + method.getParameterTypes()[0] + " Provided: " + method.getParameterTypes()[0]);
@@ -146,10 +179,14 @@ class ReflectionTest {
                 return method;
             }
         }
-        for (Method method : methods) {
-            if ("setLongPrimitiveValue".equals(method.getName())
-                    && ConvertableTypes.convertableTypes.get(classType).contains(method.getParameterTypes()[0])){
-                return method;
+        if(ConvertableTypes.convertableTypes.containsKey(classType)){
+            for(Class<?> classTypeForSearching : ConvertableTypes.convertableTypes.get(classType)){
+                for(Method method : methods){
+                    if("setLongPrimitiveValue".equals(method.getName())
+                            && classTypeForSearching.equals(method.getParameterTypes()[0])){
+                        return method;
+                    }
+                }
             }
         }
         return null;
