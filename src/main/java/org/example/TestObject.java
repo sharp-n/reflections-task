@@ -68,12 +68,12 @@ public class TestObject {
 //    }
 
     public void setLongPrimitiveValue(Object objectValue) {
-        registerSetter(objectValue.getClass());
+        registerSetter(Object.class);
         this.longPrimitiveValue = (long) objectValue;
     }
 
     public void setLongPrimitiveValue(Number objectValue) {
-        registerSetter(objectValue.getClass());
+        registerSetter(Number.class);
         this.longPrimitiveValue = (objectValue).longValue();
     }
 
