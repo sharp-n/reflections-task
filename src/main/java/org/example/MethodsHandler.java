@@ -189,4 +189,28 @@ public class MethodsHandler {
         return object;
     }
 
+    static Object invokeMethodWithOnePrimitiveParameter(Method method, Object object, String value) throws InvocationTargetException, IllegalAccessException {
+        try {
+            Class<?> classType = method.getParameterTypes()[0];
+            if (Integer.class.equals(classType)) {
+                method.invoke(object, Integer.parseInt(value));
+            } else if (Long.class.equals(classType)) {
+                method.invoke(object, Long.parseLong(value));
+            } else if (Byte.class.equals(classType)) {
+                method.invoke(object, Byte.parseByte(value));
+            } else if (Short.class.equals(classType)) {
+                method.invoke(object, Short.parseShort(value));
+            } else if (Character.class.equals(classType)) {
+                method.invoke(object, Character.forDigit(Integer.parseInt(value), 10));
+            } else if (Float.class.equals(classType)) {
+                method.invoke(object, Float.parseFloat(value));
+            } else if (Double.class.equals(classType)) {
+                method.invoke(object, Double.parseDouble(value));
+            }
+            return object;
+        } catch (NumberFormatException numberFormatException){
+            return object;
+        }
+    }
+
 }
