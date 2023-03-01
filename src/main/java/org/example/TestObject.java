@@ -102,7 +102,7 @@ public class TestObject {
     }
 
     public void setIntPrimitiveValue(long primitiveValue) {
-        this.intPrimitiveValue = intPrimitiveValue;
+        this.intPrimitiveValue = (int) primitiveValue;
     }
 
     private Class<?> registeredType;

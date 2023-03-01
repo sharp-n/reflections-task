@@ -81,6 +81,7 @@ class TypeHierarchyReflectionTest {
                 Arguments.of(Short.class),
                 Arguments.of(Byte.class),
                 Arguments.of(Character.class),
+                Arguments.of(String.class),
                 Arguments.of(Number.class),
                 Arguments.of(Object.class)
         );
@@ -97,7 +98,8 @@ class TypeHierarchyReflectionTest {
                 Arguments.of(Long.class),
                 Arguments.of(Short.class),
                 Arguments.of(Byte.class),
-                Arguments.of(Character.class)
+                Arguments.of(Character.class),
+                Arguments.of(String.class)
         );
     }
     private static Stream<Arguments> providePrimitivesAndWrappersAndNumber() {
@@ -112,6 +114,7 @@ class TypeHierarchyReflectionTest {
                 Arguments.of(Short.class),
                 Arguments.of(Byte.class),
                 Arguments.of(Character.class),
+                Arguments.of(String.class),
                 Arguments.of(Number.class)
         );
     }

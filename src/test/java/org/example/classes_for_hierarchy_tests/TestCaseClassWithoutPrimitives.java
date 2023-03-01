@@ -32,6 +32,10 @@ public class TestCaseClassWithoutPrimitives {
         this.longPrimitiveValue = Long.getLong(Double.toString(objectValue));
     }
 
+    public void setLongPrimitiveValue(String objectValue) {
+        this.longPrimitiveValue = Long.getLong(objectValue);
+    }
+
     public void setLongPrimitiveValue(Number objectValue) {
         this.longPrimitiveValue = (long)objectValue;
     }
