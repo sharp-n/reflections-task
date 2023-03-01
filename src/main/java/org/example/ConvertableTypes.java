@@ -10,6 +10,8 @@ public class ConvertableTypes {
     static final List<Class<?>> baseHierarchyForChar = new ArrayList<>(Arrays.asList(Character.class,Number.class,Object.class));
     static final List<Class<?>> baseHierarchyForLong = new ArrayList<>(Arrays.asList(Long.class,Number.class,Object.class));
     static final List<Class<?>> baseHierarchyForFloat = new ArrayList<>(Arrays.asList(Float.class,Number.class,Object.class));
+    static final List<Class<?>> baseHierarchyForDouble = new ArrayList<>(Arrays.asList(Double.class,Number.class,Object.class));
+
     static final List<Class<?>> allTypesList = new ArrayList<>(Arrays.asList(
             byte.class,short.class,char.class,int.class,long.class,float.class,double.class,
             Byte.class,Short.class,Character.class,Integer.class,Long.class, Float.class,Double.class,
@@ -45,6 +47,11 @@ public class ConvertableTypes {
             float.class,double.class,long.class,int.class,char.class,short.class,byte.class
     ));
 
+    static final List<Class<?>> primitivesForDouble = new ArrayList<>(Arrays.asList(
+            double.class,float.class,long.class,int.class,char.class,short.class,byte.class
+    ));
+
+
     static Map<Class<?>, List<Class<?>>> convertableTypes = new HashMap<>();
 
     static {
@@ -54,6 +61,7 @@ public class ConvertableTypes {
         convertableTypes.put(int.class,concatLists(baseHierarchyForInt,primitivesForInt));
         convertableTypes.put(long.class,concatLists(baseHierarchyForLong,primitivesForLong));
         convertableTypes.put(float.class,concatLists(baseHierarchyForFloat,primitivesForFloat));
+        convertableTypes.put(double.class,concatLists(baseHierarchyForDouble,primitivesForDouble));
         convertableTypes.put(Integer.class, baseHierarchyForInt);
         convertableTypes.put(Byte.class,baseHierarchyForByte);
         convertableTypes.put(Short.class,baseHierarchyForShort);
