@@ -24,6 +24,14 @@ public class TestClassWithoutPrimitives {
         this.longPrimitiveValue = objectValue;
     }
 
+    public void setLongPrimitiveValue(Float objectValue) {
+        this.longPrimitiveValue = Long.getLong(Float.toString(objectValue));
+    }
+
+    public void setLongPrimitiveValue(Double objectValue) {
+        this.longPrimitiveValue = Long.getLong(Double.toString(objectValue));
+    }
+
     public void setLongPrimitiveValue(Number objectValue) {
         this.longPrimitiveValue = (long)objectValue;
     }

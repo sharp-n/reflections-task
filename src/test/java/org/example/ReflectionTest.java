@@ -19,14 +19,13 @@ class ReflectionTest {
 
     @Test
     void valueIntPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-
         Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,int.class);
         Method expectedMethod = getMethodForTests(int.class);
         if (method!=null&&expectedMethod!=null){
             int value = 52;
             TestObject testObject = new TestObject();
             if(method.getParameterTypes()[0].isPrimitive()) {
-                testObject = MethodsHandler.setWithSetterMethod(method, value);
+                testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
             } else{
                 method.invoke(testObject,value);
             }
@@ -50,7 +49,7 @@ class ReflectionTest {
             long value = 12L;
             TestObject testObject = new TestObject();
             if(method.getParameterTypes()[0].isPrimitive()){
-                testObject = MethodsHandler.setWithSetterMethod(method, value);
+                testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
             } else{
                 method.invoke(testObject,value);
             }
@@ -74,7 +73,7 @@ class ReflectionTest {
                         + " Provided: " + method.getParameterTypes()[0]);
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                     testObject = MethodsHandler.setWithSetterMethod(method, value);
+                     testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
                 } else {
                     method.invoke(testObject,value);
                 }
@@ -95,11 +94,53 @@ class ReflectionTest {
             for (byte value : values) {
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = MethodsHandler.setWithSetterMethod(method, value);
+                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
                 } else {
                     method.invoke(testObject,value);
                 }
                 Assertions.assertEquals(value,testObject.getLongPrimitiveValue());
+                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
+            }
+        } else {
+            Assertions.assertEquals(expectedMethod,method);
+        }
+    }
+
+    @Test
+    void valueFloatPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
+        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,float.class);
+        Method expectedMethod = getMethodForTests(float.class);
+        if (method!=null&&expectedMethod!=null){
+            float [] values = {Float.intBitsToFloat(34), 35};
+            for (float value : values) {
+                TestObject testObject = new TestObject();
+                if(method.getParameterTypes()[0].isPrimitive()) {
+                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
+                } else {
+                    method.invoke(testObject,value);
+                }
+                Assertions.assertEquals((long)value,testObject.getLongPrimitiveValue());
+                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
+            }
+        } else {
+            Assertions.assertEquals(expectedMethod,method);
+        }
+    }
+
+    @Test
+    void valueDoublePrimitiveTest() throws InvocationTargetException, IllegalAccessException {
+        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,double.class);
+        Method expectedMethod = getMethodForTests(double.class);
+        if (method!=null&&expectedMethod!=null){
+            double [] values = {45.56, 1234.23, 34};
+            for (double value : values) {
+                TestObject testObject = new TestObject();
+                if(method.getParameterTypes()[0].isPrimitive()) {
+                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
+                } else {
+                    method.invoke(testObject,value);
+                }
+                Assertions.assertEquals((long)value,testObject.getLongPrimitiveValue());
                 Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
             }
         } else {
@@ -116,7 +157,7 @@ class ReflectionTest {
             for (short value : values) {
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = MethodsHandler.setWithSetterMethod(method, value);
+                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
                 } else {
                     method.invoke(testObject,value);
                 }
@@ -203,11 +244,15 @@ class ReflectionTest {
                 Arguments.of(byte.class),
                 Arguments.of(short.class),
                 Arguments.of(char.class),
+                Arguments.of(double.class),
+                Arguments.of(float.class),
                 Arguments.of(Integer.class),
                 Arguments.of(Long.class),
                 Arguments.of(Short.class),
                 Arguments.of(Byte.class),
                 Arguments.of(Character.class),
+                Arguments.of(Float.class),
+                Arguments.of(Double.class),
                 Arguments.of(Object.class)
         );
     }
@@ -221,6 +266,5 @@ class ReflectionTest {
             Assertions.assertEquals(expected.getParameterTypes().length, method.getParameterTypes().length);
         }
     }
-
 
 }
