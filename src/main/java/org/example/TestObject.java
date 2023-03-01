@@ -22,6 +22,16 @@ public class TestObject {
         this.longPrimitiveValue = intPrimitiveValue;
     }
 
+    public void setLongPrimitiveValue(float intPrimitiveValue) {
+        registerSetter(float.class);
+        this.longPrimitiveValue = (long) intPrimitiveValue;
+    }
+
+    public void setLongPrimitiveValue(double intPrimitiveValue) {
+        registerSetter(double.class);
+        this.longPrimitiveValue = (long) intPrimitiveValue;
+    }
+
 //    public void setLongPrimitiveValue(char primitiveValue) {
 //        registerSetter(char.class);
 //        this.longPrimitiveValue = primitiveValue;
@@ -60,6 +70,16 @@ public class TestObject {
     public void setLongPrimitiveValue(Short objectValue) {
         registerSetter(objectValue.getClass());
         this.longPrimitiveValue = objectValue;
+    }
+
+    public void setLongPrimitiveValue(Float objectValue) {
+        registerSetter(objectValue.getClass());
+        this.longPrimitiveValue = Long.getLong(Float.toString(objectValue));
+    }
+
+    public void setLongPrimitiveValue(Double objectValue) {
+        registerSetter(objectValue.getClass());
+        this.longPrimitiveValue = Long.getLong(Double.toString(objectValue));
     }
 
 //    public void setLongPrimitiveValue(String objectValue) {
