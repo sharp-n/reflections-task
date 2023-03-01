@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.classes_for_cast_checking.TestCaseClassForDifferentCastsChecking;
 import org.example.classes_for_cast_checking.TestCaseClassForIntCastChecking;
+import org.example.classes_for_hierarchy_tests.TestCaseClassWithoutPrimitives;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -136,6 +137,25 @@ class TypeCastMethodsTest {
         Assertions.assertEquals(typeOfValue,((TestCaseClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
+    @ParameterizedTest
+    @MethodSource("provideWrapperClassesForStringCast")
+    void castStringToWrappersTest(Class<?> typeOfValue) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        String value = "234";
+        Method method = TestCaseClassWithoutPrimitives.class.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
+        TestCaseClassWithoutPrimitives testObject = (TestCaseClassWithoutPrimitives) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method,new TestCaseClassWithoutPrimitives(),value);
+
+    }
+
+    private static Stream<Arguments> provideWrapperClassesForStringCast() {
+        return Stream.of(
+                Arguments.of(Long.class),
+                Arguments.of(Byte.class),
+                Arguments.of(Integer.class),
+                Arguments.of(Character.class),
+                Arguments.of(Float.class),
+                Arguments.of(Double.class)
+        );
+    }
 
     private static Stream<Arguments> providePrimitiveClassesForShortCast() {
         return Stream.of(

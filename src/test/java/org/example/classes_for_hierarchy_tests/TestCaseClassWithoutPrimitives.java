@@ -25,11 +25,11 @@ public class TestCaseClassWithoutPrimitives {
     }
 
     public void setLongPrimitiveValue(Float objectValue) {
-        this.longPrimitiveValue = Long.getLong(Float.toString(objectValue));
+        this.longPrimitiveValue = objectValue.longValue();
     }
 
     public void setLongPrimitiveValue(Double objectValue) {
-        this.longPrimitiveValue = Long.getLong(Double.toString(objectValue));
+        this.longPrimitiveValue = objectValue.longValue();
     }
 
     public void setLongPrimitiveValue(String objectValue) {
