@@ -39,88 +39,83 @@ public class MethodsHandler {
 //        return testObject;
 //    }
 
-    static TestObject setWithSetterMethod(Method method, int value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Object object, Method method, int value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
-        TestObject testObject = new TestObject();
         if (int.class.equals(classType)) {
-            method.invoke(testObject, (int) value);
+            method.invoke(object, (int) value);
         } else if (long.class.equals(classType)) {
-            method.invoke(testObject, (long) value);
+            method.invoke(object, (long) value);
         } else if (byte.class.equals(classType)) {
-            method.invoke(testObject, (byte) value);
+            method.invoke(object, (byte) value);
         } else if (short.class.equals(classType)) {
-            method.invoke(testObject, (short) value);
+            method.invoke(object, (short) value);
         } else if (char.class.equals(classType)) {
-            method.invoke(testObject, (char) value);
+            method.invoke(object, (char) value);
         }
-        return testObject;
+        return object;
     }
 
-    static TestObject setWithSetterMethod(Method method, short value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Object object, Method method, short value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
-        TestObject testObject = new TestObject();
         if (int.class.equals(classType)) {
-            method.invoke(testObject, (int) value);
+            method.invoke(object, (int) value);
         } else if (long.class.equals(classType)) {
-            method.invoke(testObject, (long) value);
+            method.invoke(object, (long) value);
         } else if (byte.class.equals(classType)) {
-            method.invoke(testObject, (byte) value);
+            method.invoke(object, (byte) value);
         } else if (short.class.equals(classType)) {
-            method.invoke(testObject, (short) value);
+            method.invoke(object, (short) value);
         } else if (char.class.equals(classType)) {
-            method.invoke(testObject, (char) value);
+            method.invoke(object, (char) value);
         }
-        return testObject;
+        return object;
     }
 
-    static TestObject setWithSetterMethod(Method method, byte value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Object object,Method method, byte value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
-        TestObject testObject = new TestObject();
         if (int.class.equals(classType)) {
-            method.invoke(testObject, (int) value);
+            method.invoke(object, (int) value);
         } else if (long.class.equals(classType)) {
-            method.invoke(testObject, (long) value);
+            method.invoke(object, (long) value);
         } else if (byte.class.equals(classType)) {
-            method.invoke(testObject, (byte) value);
+            method.invoke(object, (byte) value);
         } else if (short.class.equals(classType)) {
-            method.invoke(testObject, (short) value);
+            method.invoke(object, (short) value);
         } else if (char.class.equals(classType)) {
-            method.invoke(testObject, (char) value);
+            method.invoke(object, (char) value);
         }
-        return testObject;
+        return object;
     }
 
-    static TestObject setWithSetterMethod(Method method, char value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Object object, Method method, char value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
-        TestObject testObject = new TestObject();
         if (int.class.equals(classType)) {
-            method.invoke(testObject, (int) value);
+            method.invoke(object, (int) value);
         } else if (long.class.equals(classType)) {
-            method.invoke(testObject, (long) value);
+            method.invoke(object, (long) value);
         } else if (byte.class.equals(classType)) {
-            method.invoke(testObject, (byte) value);
+            method.invoke(object, (byte) value);
         } else if (short.class.equals(classType)) {
-            method.invoke(testObject, (short) value);
+            method.invoke(object, (short) value);
         } else if (char.class.equals(classType)) {
-            method.invoke(testObject, (char) value);
+            method.invoke(object, (char) value);
         }
-        return testObject;
+        return object;
     }
 
-    static TestObject setWithSetterMethod(Method method, long value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Object object, Method method, long value) throws InvocationTargetException, IllegalAccessException {
 
         Class<?> classType = method.getParameterTypes()[0];
-        TestObject testObject = new TestObject();
         if (int.class.equals(classType)) {
-            method.invoke(testObject, (int) value);
+            method.invoke(object, (int) value);
         } else if (long.class.equals(classType)) {
-            method.invoke(testObject, (long) value);
+            method.invoke(object, (long) value);
         } else if (byte.class.equals(classType)) {
-            method.invoke(testObject, (byte) value);
+            method.invoke(object, (byte) value);
         } else if (short.class.equals(classType)) {
-            method.invoke(testObject, (short) value);
+            method.invoke(object, (short) value);
         } else if (char.class.equals(classType)) {
-            method.invoke(testObject, (char) value);
+            method.invoke(object, (char) value);
         }
 //        switch (classType){
 //            case int.class:
@@ -139,7 +134,7 @@ public class MethodsHandler {
 //                method.invoke(testObject, (char) value);
 //                break;
 //        }
-        return testObject;
+        return object;
     }
 
 }
