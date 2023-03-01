@@ -42,7 +42,7 @@ public class MethodsHandler {
     static Object setWithSetterMethod(Object object, Method method, int value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
         if (int.class.equals(classType)) {
-            method.invoke(object, (int) value);
+            method.invoke(object, value);
         } else if (long.class.equals(classType)) {
             method.invoke(object, (long) value);
         } else if (byte.class.equals(classType)) {
@@ -51,6 +51,10 @@ public class MethodsHandler {
             method.invoke(object, (short) value);
         } else if (char.class.equals(classType)) {
             method.invoke(object, (char) value);
+        } else if (float.class.equals(classType)) {
+            method.invoke(object, (float) value);
+        } else if (double.class.equals(classType)) {
+            method.invoke(object, (double) value);
         }
         return object;
     }
@@ -64,9 +68,13 @@ public class MethodsHandler {
         } else if (byte.class.equals(classType)) {
             method.invoke(object, (byte) value);
         } else if (short.class.equals(classType)) {
-            method.invoke(object, (short) value);
+            method.invoke(object, value);
         } else if (char.class.equals(classType)) {
             method.invoke(object, (char) value);
+        } else if (float.class.equals(classType)) {
+            method.invoke(object, (float) value);
+        } else if (double.class.equals(classType)) {
+            method.invoke(object, (double) value);
         }
         return object;
     }
@@ -78,11 +86,15 @@ public class MethodsHandler {
         } else if (long.class.equals(classType)) {
             method.invoke(object, (long) value);
         } else if (byte.class.equals(classType)) {
-            method.invoke(object, (byte) value);
+            method.invoke(object, value);
         } else if (short.class.equals(classType)) {
             method.invoke(object, (short) value);
         } else if (char.class.equals(classType)) {
             method.invoke(object, (char) value);
+        } else if (float.class.equals(classType)) {
+            method.invoke(object, (float) value);
+        } else if (double.class.equals(classType)) {
+            method.invoke(object, (double) value);
         }
         return object;
     }
@@ -98,7 +110,11 @@ public class MethodsHandler {
         } else if (short.class.equals(classType)) {
             method.invoke(object, (short) value);
         } else if (char.class.equals(classType)) {
-            method.invoke(object, (char) value);
+            method.invoke(object, value);
+        } else if (float.class.equals(classType)) {
+            method.invoke(object, (float) value);
+        } else if (double.class.equals(classType)) {
+            method.invoke(object, (double) value);
         }
         return object;
     }
@@ -109,13 +125,17 @@ public class MethodsHandler {
         if (int.class.equals(classType)) {
             method.invoke(object, (int) value);
         } else if (long.class.equals(classType)) {
-            method.invoke(object, (long) value);
+            method.invoke(object, value);
         } else if (byte.class.equals(classType)) {
             method.invoke(object, (byte) value);
         } else if (short.class.equals(classType)) {
             method.invoke(object, (short) value);
         } else if (char.class.equals(classType)) {
             method.invoke(object, (char) value);
+        } else if (float.class.equals(classType)) {
+            method.invoke(object, (float) value);
+        } else if (double.class.equals(classType)) {
+            method.invoke(object, (double) value);
         }
 //        switch (classType){
 //            case int.class:
@@ -134,6 +154,46 @@ public class MethodsHandler {
 //                method.invoke(testObject, (char) value);
 //                break;
 //        }
+        return object;
+    }
+
+    static Object setWithSetterMethod(Object object, Method method, float value) throws InvocationTargetException, IllegalAccessException {
+        Class<?> classType = method.getParameterTypes()[0];
+        if (int.class.equals(classType)) {
+            method.invoke(object, (int) value);
+        } else if (long.class.equals(classType)) {
+            method.invoke(object, (long) value);
+        } else if (byte.class.equals(classType)) {
+            method.invoke(object, (byte) value);
+        } else if (short.class.equals(classType)) {
+            method.invoke(object, (short) value);
+        } else if (char.class.equals(classType)) {
+            method.invoke(object, (char) value);
+        } else if (float.class.equals(classType)) {
+            method.invoke(object, value);
+        } else if (double.class.equals(classType)) {
+            method.invoke(object, (double) value);
+        }
+        return object;
+    }
+
+    static Object setWithSetterMethod(Object object, Method method, double value) throws InvocationTargetException, IllegalAccessException {
+        Class<?> classType = method.getParameterTypes()[0];
+        if (int.class.equals(classType)) {
+            method.invoke(object, (int) value);
+        } else if (long.class.equals(classType)) {
+            method.invoke(object, (long) value);
+        } else if (byte.class.equals(classType)) {
+            method.invoke(object, (byte) value);
+        } else if (short.class.equals(classType)) {
+            method.invoke(object, (short) value);
+        } else if (char.class.equals(classType)) {
+            method.invoke(object, (char) value);
+        } else if (float.class.equals(classType)) {
+            method.invoke(object, (float) value);
+        } else if (double.class.equals(classType)) {
+            method.invoke(object, value);
+        }
         return object;
     }
 
