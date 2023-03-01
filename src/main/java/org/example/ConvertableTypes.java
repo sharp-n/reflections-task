@@ -12,12 +12,6 @@ public class ConvertableTypes {
     static final List<Class<?>> baseHierarchyForFloat = new ArrayList<>(Arrays.asList(Float.class,Number.class,Object.class));
     static final List<Class<?>> baseHierarchyForDouble = new ArrayList<>(Arrays.asList(Double.class,Number.class,Object.class));
 
-    static final List<Class<?>> allTypesList = new ArrayList<>(Arrays.asList(
-            byte.class,short.class,char.class,int.class,long.class,float.class,double.class,
-            Byte.class,Short.class,Character.class,Integer.class,Long.class, Float.class,Double.class,
-            String.class,Number.class, Object.class
-    ));
-
     static final List<Class<?>> primitives = new ArrayList<>(Arrays.asList(
             byte.class,short.class,char.class,int.class,long.class,float.class,double.class
     ));
@@ -51,7 +45,6 @@ public class ConvertableTypes {
             double.class,float.class,long.class,int.class,char.class,short.class,byte.class
     ));
 
-
     static Map<Class<?>, List<Class<?>>> convertableTypes = new HashMap<>();
 
     static {
@@ -69,7 +62,6 @@ public class ConvertableTypes {
         convertableTypes.put(Long.class, baseHierarchyForLong);
         convertableTypes.put(Float.class, baseHierarchyForFloat);
         convertableTypes.put(Number.class, Collections.singletonList(Object.class));
-//        convertableTypes.put(Object.class, null);
     }
 
     @SafeVarargs
@@ -78,6 +70,5 @@ public class ConvertableTypes {
         Arrays.stream(lists).forEach(resultList::addAll);
         return resultList;
     }
-
 
 }
