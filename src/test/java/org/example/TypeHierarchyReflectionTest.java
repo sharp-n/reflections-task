@@ -13,15 +13,15 @@ class TypeHierarchyReflectionTest {
 
     private final String METHOD_FOR_SEARCHING = "setLongPrimitiveValue";
 
-    private final Class<?> testClassWithoutPrimitivesClass = TestClassWithoutPrimitives.class;
+    private final Class<?> testClassWithoutPrimitivesClass = TestCaseClassWithoutPrimitives.class;
 
-    private final Class<?> testClassWithoutWrappersClass = TestClassWithoutWrappers.class;
+    private final Class<?> testClassWithoutWrappersClass = TestCaseClassWithoutWrappers.class;
 
-    private final Class<?> testClassWithoutNumberClass = TestClassWithoutNumber.class;
+    private final Class<?> testClassWithoutNumberClass = TestCaseClassWithoutNumber.class;
 
-    private final Class<?> testEmptyClass = TestClassEmpty.class;
+    private final Class<?> testEmptyClass = TestCaseClassEmpty.class;
 
-    private final Class<?> testClassForPrimitivesChecking = TestClassForPrimitivesChecking.class;
+    private final Class<?> testClassForPrimitivesChecking = TestCaseClassForPrimitivesChecking.class;
 
     @ParameterizedTest
     @MethodSource("providePrimitivesWithWrappers")

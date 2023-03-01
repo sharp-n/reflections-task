@@ -1,6 +1,6 @@
 package org.example.classes_for_hierarchy_tests;
 
-public class TestClassWithoutPrimitives {
+public class TestCaseClassWithoutPrimitives {
 
     private long longPrimitiveValue;
 

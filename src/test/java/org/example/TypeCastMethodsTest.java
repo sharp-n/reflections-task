@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.classes_for_cast_checking.TestClassForDifferentCastsChecking;
-import org.example.classes_for_cast_checking.TestClassForIntCastChecking;
+import org.example.classes_for_cast_checking.TestCaseClassForDifferentCastsChecking;
+import org.example.classes_for_cast_checking.TestCaseClassForIntCastChecking;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,15 +16,15 @@ class TypeCastMethodsTest {
 
     private final String METHOD_FOR_SEARCHING = "setLongPrimitiveValue";
 
-    private final Class<?> testClassForIntCastCheckingClass = TestClassForIntCastChecking.class;
+    private final Class<?> testClassForIntCastCheckingClass = TestCaseClassForIntCastChecking.class;
 
-    private final Class<?> testClassForDifferentCastsCheckingClass = TestClassForDifferentCastsChecking.class;
+    private final Class<?> testClassForDifferentCastsCheckingClass = TestCaseClassForDifferentCastsChecking.class;
     @Test
     void byteCastTest() throws InvocationTargetException, IllegalAccessException {
         byte providedValue = '5';
         Method providedMethod = MethodsHandler.getMethod(testClassForIntCastCheckingClass, METHOD_FOR_SEARCHING, byte.class);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestClassForIntCastChecking(), providedValue)).getRegisteredType());
+        Assertions.assertEquals(int.class,((TestCaseClassForIntCastChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForIntCastChecking(), providedValue)).getRegisteredType());
     }
 
     @Test
@@ -32,7 +32,7 @@ class TypeCastMethodsTest {
         short providedValue = '5';
         Method providedMethod = MethodsHandler.getMethod(testClassForIntCastCheckingClass, METHOD_FOR_SEARCHING, short.class);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestClassForIntCastChecking(), providedValue)).getRegisteredType());
+        Assertions.assertEquals(int.class,((TestCaseClassForIntCastChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForIntCastChecking(), providedValue)).getRegisteredType());
     }
 
     @Test
@@ -40,7 +40,7 @@ class TypeCastMethodsTest {
         short providedValue = 12;
         Method providedMethod = MethodsHandler.getMethod(testClassForIntCastCheckingClass, METHOD_FOR_SEARCHING, char.class);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestClassForIntCastChecking(), providedValue)).getRegisteredType());
+        Assertions.assertEquals(int.class,((TestCaseClassForIntCastChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForIntCastChecking(), providedValue)).getRegisteredType());
     }
 
     @Test
@@ -48,7 +48,7 @@ class TypeCastMethodsTest {
         long providedValue = 297;
         Method providedMethod = MethodsHandler.getMethod(testClassForIntCastCheckingClass, METHOD_FOR_SEARCHING, long.class);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestClassForIntCastChecking(), providedValue)).getRegisteredType());
+        Assertions.assertEquals(int.class,((TestCaseClassForIntCastChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForIntCastChecking(), providedValue)).getRegisteredType());
     }
 
     @ParameterizedTest
@@ -57,7 +57,7 @@ class TypeCastMethodsTest {
         long providedValue = 297;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestCaseClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
     private static Stream<Arguments> providePrimitiveClassesForLongCast() {
@@ -77,7 +77,7 @@ class TypeCastMethodsTest {
         int providedValue = 297;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestCaseClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
     private static Stream<Arguments> providePrimitiveClassesForIntCast() {
@@ -98,7 +98,7 @@ class TypeCastMethodsTest {
         short providedValue = 297;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestCaseClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
     @ParameterizedTest
@@ -107,7 +107,7 @@ class TypeCastMethodsTest {
         byte providedValue = 127;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestCaseClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
     @ParameterizedTest
@@ -116,7 +116,7 @@ class TypeCastMethodsTest {
         char providedValue = 297;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestCaseClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
     @ParameterizedTest
     @MethodSource("providePrimitiveClassesForDoubleCast")
@@ -124,7 +124,7 @@ class TypeCastMethodsTest {
         double providedValue = 234.2332;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestCaseClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
     @ParameterizedTest
@@ -133,7 +133,7 @@ class TypeCastMethodsTest {
         float providedValue = 132;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestCaseClassForDifferentCastsChecking) MethodsHandler.invokeMethodWithOnePrimitiveParameter(providedMethod, new TestCaseClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
 

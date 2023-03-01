@@ -1,6 +1,6 @@
 package org.example.classes_for_cast_checking;
 
-public class TestClassForIntCastChecking {
+public class TestCaseClassForIntCastChecking {
 
     private long longPrimitiveValue;
 

@@ -1,12 +1,8 @@
 package org.example.classes_for_hierarchy_tests;
 
-public class TestClassWithoutWrappers {
+public class TestCaseClassWithoutNumber {
 
     private long longPrimitiveValue;
-
-    public void setLongPrimitiveValue(Number objectValue) {
-        this.longPrimitiveValue = (long)objectValue;
-    }
 
     public void setLongPrimitiveValue(Object objectValue) {
         this.longPrimitiveValue = (long)objectValue;
