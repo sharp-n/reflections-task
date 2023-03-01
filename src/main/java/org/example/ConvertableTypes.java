@@ -47,24 +47,24 @@ public class ConvertableTypes {
             double.class,float.class,long.class,int.class,char.class,short.class,byte.class
     ));
 
-    static Map<Class<?>, List<Class<?>>> convertableTypes = new HashMap<>();
+    static Map<Class<?>, List<Class<?>>> convertableTypesMap = new HashMap<>();
 
     static {
-        convertableTypes.put(byte.class,concatLists(baseHierarchyForByte,primitivesForByte));
-        convertableTypes.put(short.class,concatLists(baseHierarchyForShort,primitivesForShort));
-        convertableTypes.put(char.class,concatLists(baseHierarchyForChar,primitivesForChar));
-        convertableTypes.put(int.class,concatLists(baseHierarchyForInt,primitivesForInt));
-        convertableTypes.put(long.class,concatLists(baseHierarchyForLong,primitivesForLong));
-        convertableTypes.put(float.class,concatLists(baseHierarchyForFloat,primitivesForFloat));
-        convertableTypes.put(double.class,concatLists(baseHierarchyForDouble,primitivesForDouble));
-        convertableTypes.put(Integer.class, baseHierarchyForInt);
-        convertableTypes.put(Byte.class,baseHierarchyForByte);
-        convertableTypes.put(Short.class,baseHierarchyForShort);
-        convertableTypes.put(Character.class,baseHierarchyForChar);
-        convertableTypes.put(Long.class, baseHierarchyForLong);
-        convertableTypes.put(Float.class, baseHierarchyForFloat);
-        convertableTypes.put(Number.class, Collections.singletonList(Object.class));
-        convertableTypes.put(String.class, baseHierarchyForString);
+        convertableTypesMap.put(byte.class,concatLists(baseHierarchyForByte,primitivesForByte));
+        convertableTypesMap.put(short.class,concatLists(baseHierarchyForShort,primitivesForShort));
+        convertableTypesMap.put(char.class,concatLists(baseHierarchyForChar,primitivesForChar));
+        convertableTypesMap.put(int.class,concatLists(baseHierarchyForInt,primitivesForInt));
+        convertableTypesMap.put(long.class,concatLists(baseHierarchyForLong,primitivesForLong));
+        convertableTypesMap.put(float.class,concatLists(baseHierarchyForFloat,primitivesForFloat));
+        convertableTypesMap.put(double.class,concatLists(baseHierarchyForDouble,primitivesForDouble));
+        convertableTypesMap.put(Integer.class, baseHierarchyForInt);
+        convertableTypesMap.put(Byte.class,baseHierarchyForByte);
+        convertableTypesMap.put(Short.class,baseHierarchyForShort);
+        convertableTypesMap.put(Character.class,baseHierarchyForChar);
+        convertableTypesMap.put(Long.class, baseHierarchyForLong);
+        convertableTypesMap.put(Float.class, baseHierarchyForFloat);
+        convertableTypesMap.put(Number.class, Collections.singletonList(Object.class));
+        convertableTypesMap.put(String.class, baseHierarchyForString);
     }
 
     @SafeVarargs

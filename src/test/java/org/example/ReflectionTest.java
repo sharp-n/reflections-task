@@ -224,8 +224,8 @@ class ReflectionTest {
                 return method;
             }
         }
-        if(ConvertableTypes.convertableTypes.containsKey(classType)){
-            for(Class<?> classTypeForSearching : ConvertableTypes.convertableTypes.get(classType)){
+        if(ConvertableTypes.convertableTypesMap.containsKey(classType)){
+            for(Class<?> classTypeForSearching : ConvertableTypes.convertableTypesMap.get(classType)){
                 for(Method method : methods){
                     if("setLongPrimitiveValue".equals(method.getName())
                             && classTypeForSearching.equals(method.getParameterTypes()[0])){

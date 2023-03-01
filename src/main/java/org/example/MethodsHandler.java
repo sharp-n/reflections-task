@@ -20,8 +20,8 @@ public class MethodsHandler {
                 return method;
             }
         }
-        if(ConvertableTypes.convertableTypes.containsKey(valueType)){
-            for(Class<?> classType : ConvertableTypes.convertableTypes.get(valueType)){
+        if(ConvertableTypes.convertableTypesMap.containsKey(valueType)){
+            for(Class<?> classType : ConvertableTypes.convertableTypesMap.get(valueType)){
                 for (Method method : methods){
                     if(classType.equals(method.getParameterTypes()[0])){
                         return method;
