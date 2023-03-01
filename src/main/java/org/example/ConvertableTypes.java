@@ -4,6 +4,8 @@ import java.util.*;
 
 public class ConvertableTypes {
 
+    private ConvertableTypes(){}
+
     static final List<Class<?>> baseHierarchyForInt = new ArrayList<>(Arrays.asList(Integer.class,Number.class,Object.class));
     static final List<Class<?>> baseHierarchyForByte = new ArrayList<>(Arrays.asList(Byte.class,Number.class,Object.class));
     static final List<Class<?>> baseHierarchyForShort = new ArrayList<>(Arrays.asList(Short.class,Number.class,Object.class));
