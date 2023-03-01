@@ -22,33 +22,33 @@ class TypeCastMethodsTest {
     @Test
     void byteCastTest() throws InvocationTargetException, IllegalAccessException {
         byte providedValue = '5';
-        Method providedMethod = MethodsHandler.getMethod(METHOD_FOR_SEARCHING, testClassForIntCastCheckingClass, byte.class);
+        Method providedMethod = MethodsHandler.getMethod(testClassForIntCastCheckingClass, METHOD_FOR_SEARCHING, byte.class);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.setWithSetterMethod(new TestClassForIntCastChecking(),providedMethod,providedValue)).getRegisteredType());
+        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.setWithSetterMethod(providedMethod, new TestClassForIntCastChecking(), providedValue)).getRegisteredType());
     }
 
     @Test
     void shortCastTest() throws InvocationTargetException, IllegalAccessException {
         short providedValue = '5';
-        Method providedMethod = MethodsHandler.getMethod(METHOD_FOR_SEARCHING, testClassForIntCastCheckingClass, short.class);
+        Method providedMethod = MethodsHandler.getMethod(testClassForIntCastCheckingClass, METHOD_FOR_SEARCHING, short.class);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.setWithSetterMethod(new TestClassForIntCastChecking(),providedMethod,providedValue)).getRegisteredType());
+        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.setWithSetterMethod(providedMethod, new TestClassForIntCastChecking(), providedValue)).getRegisteredType());
     }
 
     @Test
     void charCastTest() throws InvocationTargetException, IllegalAccessException {
         short providedValue = 12;
-        Method providedMethod = MethodsHandler.getMethod(METHOD_FOR_SEARCHING, testClassForIntCastCheckingClass, char.class);
+        Method providedMethod = MethodsHandler.getMethod(testClassForIntCastCheckingClass, METHOD_FOR_SEARCHING, char.class);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.setWithSetterMethod(new TestClassForIntCastChecking(),providedMethod,providedValue)).getRegisteredType());
+        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.setWithSetterMethod(providedMethod, new TestClassForIntCastChecking(), providedValue)).getRegisteredType());
     }
 
     @Test
     void longCastTest() throws InvocationTargetException, IllegalAccessException {
         long providedValue = 297;
-        Method providedMethod = MethodsHandler.getMethod(METHOD_FOR_SEARCHING,testClassForIntCastCheckingClass,long.class);
+        Method providedMethod = MethodsHandler.getMethod(testClassForIntCastCheckingClass, METHOD_FOR_SEARCHING, long.class);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.setWithSetterMethod(new TestClassForIntCastChecking(),providedMethod,providedValue)).getRegisteredType());
+        Assertions.assertEquals(int.class,((TestClassForIntCastChecking) MethodsHandler.setWithSetterMethod(providedMethod, new TestClassForIntCastChecking(), providedValue)).getRegisteredType());
     }
 
     @ParameterizedTest
@@ -57,7 +57,7 @@ class TypeCastMethodsTest {
         long providedValue = 297;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(new TestClassForDifferentCastsChecking(),providedMethod,providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
     private static Stream<Arguments> providePrimitiveClassesForLongCast() {
@@ -77,7 +77,7 @@ class TypeCastMethodsTest {
         int providedValue = 297;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(new TestClassForDifferentCastsChecking(),providedMethod,providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
     private static Stream<Arguments> providePrimitiveClassesForIntCast() {
@@ -98,7 +98,7 @@ class TypeCastMethodsTest {
         short providedValue = 297;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(new TestClassForDifferentCastsChecking(),providedMethod,providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
     @ParameterizedTest
@@ -107,7 +107,7 @@ class TypeCastMethodsTest {
         byte providedValue = 127;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(new TestClassForDifferentCastsChecking(),providedMethod,providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
     @ParameterizedTest
@@ -116,7 +116,7 @@ class TypeCastMethodsTest {
         char providedValue = 297;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(new TestClassForDifferentCastsChecking(),providedMethod,providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
     @ParameterizedTest
     @MethodSource("providePrimitiveClassesForDoubleCast")
@@ -124,7 +124,7 @@ class TypeCastMethodsTest {
         double providedValue = 234.2332;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(new TestClassForDifferentCastsChecking(),providedMethod,providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
     @ParameterizedTest
@@ -133,7 +133,7 @@ class TypeCastMethodsTest {
         float providedValue = 132;
         Method providedMethod = testClassForDifferentCastsCheckingClass.getMethod(METHOD_FOR_SEARCHING,typeOfValue);
         Assertions.assertNotNull(providedMethod);
-        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(new TestClassForDifferentCastsChecking(),providedMethod,providedValue)).getRegisteredType());
+        Assertions.assertEquals(typeOfValue,((TestClassForDifferentCastsChecking) MethodsHandler.setWithSetterMethod(providedMethod, new TestClassForDifferentCastsChecking(), providedValue)).getRegisteredType());
     }
 
 

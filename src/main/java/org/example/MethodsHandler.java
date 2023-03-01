@@ -10,7 +10,7 @@ public class MethodsHandler {
 
     private MethodsHandler(){}
 
-    public static Method getMethod(String methodName, Class<?> classForMethodSearching, Class<?> valueType) {
+    public static Method getMethod(Class<?> classForMethodSearching, String methodName, Class<?> valueType) {
 //        Class<TestObject> testObjectClass = TestObject.class;
         List<Method> methods = Arrays.stream(classForMethodSearching.getMethods())
                 .filter(method -> methodName.equals(method.getName())&& method.getParameterTypes().length == 1)
@@ -39,7 +39,7 @@ public class MethodsHandler {
 //        return testObject;
 //    }
 
-    static Object setWithSetterMethod(Object object, Method method, int value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Method method, Object object, int value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
         if (int.class.equals(classType)) {
             method.invoke(object, value);
@@ -59,7 +59,7 @@ public class MethodsHandler {
         return object;
     }
 
-    static Object setWithSetterMethod(Object object, Method method, short value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Method method, Object object, short value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
         if (int.class.equals(classType)) {
             method.invoke(object, (int) value);
@@ -79,7 +79,7 @@ public class MethodsHandler {
         return object;
     }
 
-    static Object setWithSetterMethod(Object object,Method method, byte value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Method method, Object object, byte value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
         if (int.class.equals(classType)) {
             method.invoke(object, (int) value);
@@ -99,7 +99,7 @@ public class MethodsHandler {
         return object;
     }
 
-    static Object setWithSetterMethod(Object object, Method method, char value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Method method, Object object, char value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
         if (int.class.equals(classType)) {
             method.invoke(object, (int) value);
@@ -119,7 +119,7 @@ public class MethodsHandler {
         return object;
     }
 
-    static Object setWithSetterMethod(Object object, Method method, long value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Method method, Object object, long value) throws InvocationTargetException, IllegalAccessException {
 
         Class<?> classType = method.getParameterTypes()[0];
         if (int.class.equals(classType)) {
@@ -157,7 +157,7 @@ public class MethodsHandler {
         return object;
     }
 
-    static Object setWithSetterMethod(Object object, Method method, float value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Method method, Object object, float value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
         if (int.class.equals(classType)) {
             method.invoke(object, (int) value);
@@ -177,7 +177,7 @@ public class MethodsHandler {
         return object;
     }
 
-    static Object setWithSetterMethod(Object object, Method method, double value) throws InvocationTargetException, IllegalAccessException {
+    static Object setWithSetterMethod(Method method, Object object, double value) throws InvocationTargetException, IllegalAccessException {
         Class<?> classType = method.getParameterTypes()[0];
         if (int.class.equals(classType)) {
             method.invoke(object, (int) value);

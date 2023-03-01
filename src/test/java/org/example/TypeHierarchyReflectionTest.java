@@ -27,7 +27,7 @@ class TypeHierarchyReflectionTest {
     @MethodSource("providePrimitivesWithWrappers")
     void primitivesInClassWithoutPrimitivesTest(Class<?> primitiveClass, Class<?> wrapperClass) throws NoSuchMethodException {
         Method expectedMethod = testClassWithoutPrimitivesClass.getMethod(METHOD_FOR_SEARCHING,wrapperClass);
-        Method providedMethod = MethodsHandler.getMethod(METHOD_FOR_SEARCHING, testClassWithoutPrimitivesClass,primitiveClass);
+        Method providedMethod = MethodsHandler.getMethod(testClassWithoutPrimitivesClass, METHOD_FOR_SEARCHING, primitiveClass);
         Assertions.assertNotNull(providedMethod);
         Assertions.assertEquals(expectedMethod,providedMethod);
     }
@@ -46,7 +46,7 @@ class TypeHierarchyReflectionTest {
     @MethodSource("providePrimitivesAndWrappers")
     void primitivesAndWrappersInCLassWithoutWrappersTest(Class<?> typeOfValue) throws NoSuchMethodException {
         Method expectedMethod = testClassWithoutWrappersClass.getMethod(METHOD_FOR_SEARCHING,Number.class);
-        Method providedMethod = MethodsHandler.getMethod(METHOD_FOR_SEARCHING, testClassWithoutWrappersClass,typeOfValue);
+        Method providedMethod = MethodsHandler.getMethod(testClassWithoutWrappersClass, METHOD_FOR_SEARCHING, typeOfValue);
         Assertions.assertNotNull(providedMethod);
         Assertions.assertEquals(expectedMethod,providedMethod);
     }
@@ -57,7 +57,7 @@ class TypeHierarchyReflectionTest {
     @MethodSource("providePrimitivesAndWrappersAndNumber")
     void primitivesAndWrappersAneNumberInClassWithoutNumberTest(Class<?> typeOfValue) throws NoSuchMethodException {
         Method expectedMethod =testClassWithoutNumberClass.getMethod(METHOD_FOR_SEARCHING,Object.class);
-        Method providedMethod = MethodsHandler.getMethod(METHOD_FOR_SEARCHING, testClassWithoutNumberClass,typeOfValue);
+        Method providedMethod = MethodsHandler.getMethod(testClassWithoutNumberClass, METHOD_FOR_SEARCHING, typeOfValue);
         Assertions.assertNotNull(providedMethod);
         Assertions.assertEquals(expectedMethod,providedMethod);
     }
@@ -65,7 +65,7 @@ class TypeHierarchyReflectionTest {
     @ParameterizedTest
     @MethodSource("provideValuesAllTypes")
     void allTypesInEmptyClass(Class<?> typeOfValue){
-        Method providedMethod = MethodsHandler.getMethod(METHOD_FOR_SEARCHING,testEmptyClass,typeOfValue);
+        Method providedMethod = MethodsHandler.getMethod(testEmptyClass, METHOD_FOR_SEARCHING, typeOfValue);
         Assertions.assertNull(providedMethod);
     }
 
@@ -120,7 +120,7 @@ class TypeHierarchyReflectionTest {
     @MethodSource("providePrimitives")
     void primitivesHierarchyInClassForPrimitivesCheckingTest(Class<?> typeOfValue, Class<?> expectedTypeOfValue) throws NoSuchMethodException {
         Method expectedMethod = testClassForPrimitivesChecking.getMethod(METHOD_FOR_SEARCHING,expectedTypeOfValue);
-        Method providedMethod = MethodsHandler.getMethod(METHOD_FOR_SEARCHING, testClassForPrimitivesChecking,typeOfValue);
+        Method providedMethod = MethodsHandler.getMethod(testClassForPrimitivesChecking, METHOD_FOR_SEARCHING, typeOfValue);
         Assertions.assertNotNull(providedMethod);
         Assertions.assertEquals(expectedMethod,providedMethod);
     }

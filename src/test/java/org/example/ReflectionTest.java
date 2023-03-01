@@ -19,13 +19,13 @@ class ReflectionTest {
 
     @Test
     void valueIntPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,int.class);
+        Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, int.class);
         Method expectedMethod = getMethodForTests(int.class);
         if (method!=null&&expectedMethod!=null){
             int value = 52;
             TestObject testObject = new TestObject();
             if(method.getParameterTypes()[0].isPrimitive()) {
-                testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
+                testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
             } else{
                 method.invoke(testObject,value);
             }
@@ -40,7 +40,7 @@ class ReflectionTest {
 
     @Test
     void valueLongPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,long.class);
+        Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, long.class);
         Method expectedMethod = getMethodForTests(long.class);
         if (method!=null&&expectedMethod!=null) {
             System.out.println("Type: long "
@@ -49,7 +49,7 @@ class ReflectionTest {
             long value = 12L;
             TestObject testObject = new TestObject();
             if(method.getParameterTypes()[0].isPrimitive()){
-                testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
+                testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
             } else{
                 method.invoke(testObject,value);
             }
@@ -63,7 +63,7 @@ class ReflectionTest {
 
     @Test
     void valueCharPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,char.class);
+        Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, char.class);
         Method expectedMethod = getMethodForTests(char.class);
         if (method!=null&&expectedMethod!=null){
             char [] values = {1, '5', 'e'};
@@ -73,7 +73,7 @@ class ReflectionTest {
                         + " Provided: " + method.getParameterTypes()[0]);
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                     testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
+                     testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
                 } else {
                     method.invoke(testObject,value);
                 }
@@ -87,14 +87,14 @@ class ReflectionTest {
 
     @Test
     void valueBytePrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,byte.class);
+        Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, byte.class);
         Method expectedMethod = getMethodForTests(byte.class);
         if (method!=null&&expectedMethod!=null){
             byte [] values = {1, '5', 'e',Byte.parseByte("19")};
             for (byte value : values) {
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
+                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
                 } else {
                     method.invoke(testObject,value);
                 }
@@ -108,14 +108,14 @@ class ReflectionTest {
 
     @Test
     void valueFloatPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,float.class);
+        Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, float.class);
         Method expectedMethod = getMethodForTests(float.class);
         if (method!=null&&expectedMethod!=null){
             float [] values = {Float.intBitsToFloat(34), 35};
             for (float value : values) {
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
+                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
                 } else {
                     method.invoke(testObject,value);
                 }
@@ -129,14 +129,14 @@ class ReflectionTest {
 
     @Test
     void valueDoublePrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,double.class);
+        Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, double.class);
         Method expectedMethod = getMethodForTests(double.class);
         if (method!=null&&expectedMethod!=null){
             double [] values = {45.56, 1234.23, 34};
             for (double value : values) {
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
+                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
                 } else {
                     method.invoke(testObject,value);
                 }
@@ -150,14 +150,14 @@ class ReflectionTest {
 
     @Test
     void valueShortPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,short.class);
+        Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, short.class);
         Method expectedMethod = getMethodForTests(short.class);
         if (method!=null&&expectedMethod!=null){
             short [] values = {1, '5', 'e',Short.parseShort("19")};
             for (short value : values) {
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(new TestObject(),method, value);
+                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
                 } else {
                     method.invoke(testObject,value);
                 }
@@ -172,7 +172,7 @@ class ReflectionTest {
     @ParameterizedTest
     @MethodSource("provideObjects")
     void valueObjectTest(Object object) throws InvocationTargetException, IllegalAccessException {
-        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,object.getClass());
+        Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, object.getClass());
         Method expectedMethod = getMethodForTests(object.getClass());
         if(expectedMethod!=null&&method!=null) {
             TestObject testObject = new TestObject();
@@ -206,7 +206,7 @@ class ReflectionTest {
     @ParameterizedTest
     @MethodSource("provideCLassTypes")
     void methodsHandlerTest(Class<?> classType){
-        Method provided = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,classType);
+        Method provided = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, classType);
         Method method = getMethodForTests(classType);
         if(method!=null){
             System.out.println("СlassType: " + classType.getName() + " Expected: " + method.getParameterTypes()[0] + " Provided: " + method.getParameterTypes()[0]);
@@ -260,7 +260,7 @@ class ReflectionTest {
     @ParameterizedTest
     @MethodSource("provideCLassTypes")
     void parametersNumberMethodsHandlerTest(Class<?> classType){
-        Method method = MethodsHandler.getMethod(METHOD_NAME,CLASS_FOR_METHOD_SEARCHING,classType);
+        Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, classType);
         Method expected = getMethodForTests(classType);
         if(method!=null&&expected!=null){
             Assertions.assertEquals(expected.getParameterTypes().length, method.getParameterTypes().length);
