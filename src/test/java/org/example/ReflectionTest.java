@@ -25,7 +25,7 @@ class ReflectionTest {
             int value = 52;
             TestObject testObject = new TestObject();
             if(method.getParameterTypes()[0].isPrimitive()) {
-                testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
+                testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
             } else{
                 method.invoke(testObject,value);
             }
@@ -49,7 +49,7 @@ class ReflectionTest {
             long value = 12L;
             TestObject testObject = new TestObject();
             if(method.getParameterTypes()[0].isPrimitive()){
-                testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
+                testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
             } else{
                 method.invoke(testObject,value);
             }
@@ -73,7 +73,7 @@ class ReflectionTest {
                         + " Provided: " + method.getParameterTypes()[0]);
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                     testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
+                     testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
                 } else {
                     method.invoke(testObject,value);
                 }
@@ -94,7 +94,7 @@ class ReflectionTest {
             for (byte value : values) {
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
+                    testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
                 } else {
                     method.invoke(testObject,value);
                 }
@@ -115,7 +115,7 @@ class ReflectionTest {
             for (float value : values) {
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
+                    testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
                 } else {
                     method.invoke(testObject,value);
                 }
@@ -136,7 +136,7 @@ class ReflectionTest {
             for (double value : values) {
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
+                    testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
                 } else {
                     method.invoke(testObject,value);
                 }
@@ -157,7 +157,7 @@ class ReflectionTest {
             for (short value : values) {
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = (TestObject) MethodsHandler.setWithSetterMethod(method, new TestObject(), value);
+                    testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
                 } else {
                     method.invoke(testObject,value);
                 }
