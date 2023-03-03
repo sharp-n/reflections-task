@@ -7,28 +7,34 @@ public class TestObject {
     private int intPrimitiveValue;
 
 
+    private final RegisterType registeredType = new RegisterType();
+
+    public RegisterType getRegisteredType() {
+        return registeredType;
+    }
+
     public long getLongPrimitiveValue() {
         return longPrimitiveValue;
     }
 
     public void setLongPrimitiveValue(long longPrimitiveValue) {
-        registerSetter(long.class);
+        registeredType.registerSetter(long.class);
         this.longPrimitiveValue = longPrimitiveValue;
     }
 
 
     public void setLongPrimitiveValue(int intPrimitiveValue) {
-        registerSetter(int.class);
+        registeredType.registerSetter(int.class);
         this.longPrimitiveValue = intPrimitiveValue;
     }
 
     public void setLongPrimitiveValue(float intPrimitiveValue) {
-        registerSetter(float.class);
+        registeredType.registerSetter(float.class);
         this.longPrimitiveValue = (long) intPrimitiveValue;
     }
 
     public void setLongPrimitiveValue(double intPrimitiveValue) {
-        registerSetter(double.class);
+        registeredType.registerSetter(double.class);
         this.longPrimitiveValue = (long) intPrimitiveValue;
     }
 
@@ -38,22 +44,22 @@ public class TestObject {
 //    }
 
     public void setLongPrimitiveValue(short primitiveValue) {
-        registerSetter(short.class);
+        registeredType.registerSetter(short.class);
         this.longPrimitiveValue = primitiveValue;
     }
 
     public void setLongPrimitiveValue(byte primitiveValue) {
-        registerSetter(byte.class);
+        registeredType.registerSetter(byte.class);
         this.longPrimitiveValue = primitiveValue;
     }
 
     public void setLongPrimitiveValue(Integer objectValue) {
-        registerSetter(Integer.class);
+        registeredType.registerSetter(Integer.class);
         this.longPrimitiveValue = objectValue;
     }
 
     public void setLongPrimitiveValue(Long objectValue) {
-        registerSetter(Long.class);
+        registeredType.registerSetter(Long.class);
         this.longPrimitiveValue = objectValue;
     }
 
@@ -63,22 +69,22 @@ public class TestObject {
 //    }
 
     public void setLongPrimitiveValue(Character objectValue) {
-        registerSetter(objectValue.getClass());
+        registeredType.registerSetter(Character.class);
         this.longPrimitiveValue = objectValue;
     }
 
     public void setLongPrimitiveValue(Short objectValue) {
-        registerSetter(objectValue.getClass());
+        registeredType.registerSetter(Short.class);
         this.longPrimitiveValue = objectValue;
     }
 
     public void setLongPrimitiveValue(Float objectValue) {
-        registerSetter(objectValue.getClass());
+        registeredType.registerSetter(Float.class);
         this.longPrimitiveValue = Long.getLong(Float.toString(objectValue));
     }
 
     public void setLongPrimitiveValue(Double objectValue) {
-        registerSetter(objectValue.getClass());
+        registeredType.registerSetter(Double.class);
         this.longPrimitiveValue = Long.getLong(Double.toString(objectValue));
     }
 
@@ -88,12 +94,12 @@ public class TestObject {
 //    }
 
     public void setLongPrimitiveValue(Object objectValue) {
-        registerSetter(Object.class);
+        registeredType.registerSetter(Object.class);
         this.longPrimitiveValue = (long) objectValue;
     }
 
     public void setLongPrimitiveValue(Number objectValue) {
-        registerSetter(Number.class);
+        registeredType.registerSetter(Number.class);
         this.longPrimitiveValue = (objectValue).longValue();
     }
 
@@ -105,13 +111,4 @@ public class TestObject {
         this.intPrimitiveValue = (int) primitiveValue;
     }
 
-    private Class<?> registeredType;
-
-    private void registerSetter(Class<?> classType){
-        this.registeredType = classType;
-    }
-
-    public Class<?> getRegisteredType() {
-        return registeredType;
-    }
 }
