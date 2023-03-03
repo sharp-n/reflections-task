@@ -30,7 +30,7 @@ class ReflectionTest {
                 method.invoke(testObject,value);
             }
             Assertions.assertEquals(value, testObject.getLongPrimitiveValue());
-            Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
+            Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType().getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
         }
@@ -55,58 +55,71 @@ class ReflectionTest {
             }
 
             Assertions.assertEquals(value, testObject.getLongPrimitiveValue());
-            Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
+            Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType().getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
         }
     }
 
-    @Test
-    void valueCharPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
+    @ParameterizedTest
+    @MethodSource("provideCharPrimitives")
+    void valueCharPrimitiveTest(Character value) throws InvocationTargetException, IllegalAccessException {
         Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, char.class);
         Method expectedMethod = getMethodForTests(char.class);
-        if (method!=null&&expectedMethod!=null){
-            char [] values = {1, '5', 'e'};
-            for (char value : values) {
-                System.out.println("Type: char "
-                        + " Expected: " + expectedMethod.getParameterTypes()[0]
-                        + " Provided: " + method.getParameterTypes()[0]);
-                TestObject testObject = new TestObject();
-                if(method.getParameterTypes()[0].isPrimitive()) {
-                     testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
-                } else {
-                    method.invoke(testObject,value);
-                }
-                Assertions.assertEquals(value,testObject.getLongPrimitiveValue());
-                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
+        if (method!=null&&expectedMethod!=null) {
+            System.out.println("Type: char "
+                    + " Expected: " + expectedMethod.getParameterTypes()[0]
+                    + " Provided: " + method.getParameterTypes()[0]);
+            TestObject testObject = new TestObject();
+            if (method.getParameterTypes()[0].isPrimitive()) {
+                testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
+            } else {
+                method.invoke(testObject, value);
             }
+            Assertions.assertEquals(value.charValue(), testObject.getLongPrimitiveValue());
+            Assertions.assertEquals(expectedMethod.getParameterTypes()[0], testObject.getRegisteredType().getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
         }
     }
 
-    @Test
-    void valueBytePrimitiveTest() throws InvocationTargetException, IllegalAccessException {
+    private static Stream<Arguments> provideCharPrimitives() {
+        return Stream.of(
+                Arguments.of((char)1),
+                Arguments.of('5'),
+                Arguments.of('e')
+        );
+    }
+
+    private static Stream<Arguments> provideBytePrimitives() {
+        return Stream.of(
+                Arguments.of((byte) 1),
+                Arguments.of((byte)'5'),
+                Arguments.of((byte)'e')
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideBytePrimitives")
+    void valueBytePrimitiveTest(Byte value) throws InvocationTargetException, IllegalAccessException {
         Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, byte.class);
         Method expectedMethod = getMethodForTests(byte.class);
-        if (method!=null&&expectedMethod!=null){
-            byte [] values = {1, '5', 'e',Byte.parseByte("19")};
-            for (byte value : values) {
-                TestObject testObject = new TestObject();
-                if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
-                } else {
-                    method.invoke(testObject,value);
-                }
-                Assertions.assertEquals(value,testObject.getLongPrimitiveValue());
-                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
+        if (method!=null&&expectedMethod!=null) {
+            TestObject testObject = new TestObject();
+            if (method.getParameterTypes()[0].isPrimitive()) {
+                testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
+            } else {
+                method.invoke(testObject, value);
             }
+            Assertions.assertEquals(value.byteValue(), testObject.getLongPrimitiveValue());
+            Assertions.assertEquals(expectedMethod.getParameterTypes()[0], testObject.getRegisteredType().getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
         }
     }
 
-    @Test
+    @ParameterizedTest
+    @MethodSource("provideFloatPrimitives")
     void valueFloatPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
         Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, float.class);
         Method expectedMethod = getMethodForTests(float.class);
@@ -120,53 +133,73 @@ class ReflectionTest {
                     method.invoke(testObject,value);
                 }
                 Assertions.assertEquals((long)value,testObject.getLongPrimitiveValue());
-                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
+                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType().getRegisteredType());
             }
         } else {
             Assertions.assertEquals(expectedMethod,method);
         }
     }
 
-    @Test
-    void valueDoublePrimitiveTest() throws InvocationTargetException, IllegalAccessException {
+    private static Stream<Arguments> provideFloatPrimitives() {
+        return Stream.of(
+                Arguments.of(Float.intBitsToFloat(34)),
+                Arguments.of((float)35)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideDoublePrimitives")
+    void valueDoublePrimitiveTest(Double value) throws InvocationTargetException, IllegalAccessException {
         Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, double.class);
         Method expectedMethod = getMethodForTests(double.class);
-        if (method!=null&&expectedMethod!=null){
-            double [] values = {45.56, 1234.23, 34};
-            for (double value : values) {
-                TestObject testObject = new TestObject();
-                if(method.getParameterTypes()[0].isPrimitive()) {
-                    testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
-                } else {
-                    method.invoke(testObject,value);
-                }
-                Assertions.assertEquals((long)value,testObject.getLongPrimitiveValue());
-                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
+        if (method!=null&&expectedMethod!=null) {
+            TestObject testObject = new TestObject();
+            if (method.getParameterTypes()[0].isPrimitive()) {
+                testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
+            } else {
+                method.invoke(testObject, value);
             }
+            Assertions.assertEquals((long) value.doubleValue(), testObject.getLongPrimitiveValue());
+            Assertions.assertEquals(expectedMethod.getParameterTypes()[0], testObject.getRegisteredType().getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
         }
     }
 
-    @Test
-    void valueShortPrimitiveTest() throws InvocationTargetException, IllegalAccessException {
+    private static Stream<Arguments> provideDoublePrimitives() {
+        return Stream.of(
+                Arguments.of(45.56),
+                Arguments.of(1234.23),
+                Arguments.of((double)34)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideShortPrimitives")
+    void valueShortPrimitiveTest(Short value) throws InvocationTargetException, IllegalAccessException {
         Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, short.class);
         Method expectedMethod = getMethodForTests(short.class);
         if (method!=null&&expectedMethod!=null){
-            short [] values = {1, '5', 'e',Short.parseShort("19")};
-            for (short value : values) {
                 TestObject testObject = new TestObject();
                 if(method.getParameterTypes()[0].isPrimitive()) {
                     testObject = (TestObject) MethodsHandler.invokeMethodWithOnePrimitiveParameter(method, new TestObject(), value);
                 } else {
                     method.invoke(testObject,value);
                 }
-                Assertions.assertEquals(value,testObject.getLongPrimitiveValue());
-                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
-            }
+                Assertions.assertEquals(value.shortValue(),testObject.getLongPrimitiveValue());
+                Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType().getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
         }
+    }
+
+    private static Stream<Arguments> provideShortPrimitives() {
+        return Stream.of(
+                Arguments.of((short)1),
+                Arguments.of((short)'5'),
+                Arguments.of((short)'e'),
+                Arguments.of(Short.parseShort("19"))
+        );
     }
 
     @ParameterizedTest
@@ -178,7 +211,7 @@ class ReflectionTest {
             TestObject testObject = new TestObject();
             method.invoke(testObject, object);
             Assertions.assertEquals(getObjectHashCode(object), getObjectHashCode(testObject.getLongPrimitiveValue()));
-            Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType());
+            Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType().getRegisteredType());
         }else {
             Assertions.assertEquals(expectedMethod,method);
         }
@@ -191,7 +224,6 @@ class ReflectionTest {
                 Arguments.of(Byte.parseByte("34")),
                 Arguments.of('m'),
                 Arguments.of(Short.parseShort("8")),
-//                Arguments.of("9092"),
                 Arguments.of((Object) 679)
         );
     }
