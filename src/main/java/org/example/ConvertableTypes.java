@@ -26,27 +26,23 @@ public class ConvertableTypes {
     ));
 
     static final List<Class<?>> primitivesForShort = new ArrayList<>(Arrays.asList(
-            short.class,int.class,long.class,float.class,double.class,char.class,byte.class
+            short.class,int.class,long.class,float.class,double.class,char.class
     ));
 
     static final List<Class<?>> primitivesForChar = new ArrayList<>(Arrays.asList(
-           char.class,int.class,long.class,float.class,double.class,short.class,byte.class
+           char.class,int.class,long.class,float.class,double.class
     ));
 
     static final List<Class<?>> primitivesForInt = new ArrayList<>(Arrays.asList(
-            int.class,long.class,float.class,double.class,char.class,short.class,byte.class
+            int.class,long.class,float.class,double.class
     ));
 
     static final List<Class<?>> primitivesForLong = new ArrayList<>(Arrays.asList(
-            long.class,float.class,double.class,int.class,char.class,short.class,byte.class
+            long.class,float.class,double.class
     ));
 
     static final List<Class<?>> primitivesForFloat = new ArrayList<>(Arrays.asList(
-            float.class,double.class,long.class,int.class,char.class,short.class,byte.class
-    ));
-
-    static final List<Class<?>> primitivesForDouble = new ArrayList<>(Arrays.asList(
-            double.class,float.class,long.class,int.class,char.class,short.class,byte.class
+            float.class,double.class
     ));
 
     static Map<Class<?>, List<Class<?>>> convertableTypesMap = new HashMap<>();
@@ -58,7 +54,6 @@ public class ConvertableTypes {
         convertableTypesMap.put(int.class,concatLists(baseHierarchyForInt,primitivesForInt));
         convertableTypesMap.put(long.class,concatLists(baseHierarchyForLong,primitivesForLong));
         convertableTypesMap.put(float.class,concatLists(baseHierarchyForFloat,primitivesForFloat));
-        convertableTypesMap.put(double.class,concatLists(baseHierarchyForDouble,primitivesForDouble));
         convertableTypesMap.put(Integer.class, baseHierarchyForInt);
         convertableTypesMap.put(Byte.class,baseHierarchyForByte);
         convertableTypesMap.put(Short.class,baseHierarchyForShort);
@@ -66,8 +61,9 @@ public class ConvertableTypes {
         convertableTypesMap.put(Long.class, baseHierarchyForLong);
         convertableTypesMap.put(Float.class, baseHierarchyForFloat);
         convertableTypesMap.put(Number.class, Collections.singletonList(Object.class));
-        convertableTypesMap.put(String.class, baseHierarchyForString);
+//        convertableTypesMap.put(Boolean.class, Collections.singletonList(Object.class));
     }
+
 
     @SafeVarargs
     private static <T> List<T> concatLists(List<T> ... lists){
