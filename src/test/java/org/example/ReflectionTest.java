@@ -63,7 +63,7 @@ class ReflectionTest {
 
     @ParameterizedTest
     @MethodSource("provideCharPrimitives")
-    void valueCharPrimitiveTest(Character value) throws InvocationTargetException, IllegalAccessException {
+    void valueCharPrimitiveTest(char value) throws InvocationTargetException, IllegalAccessException {
         Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, char.class);
         Method expectedMethod = getMethodForTests(char.class);
         if (method!=null&&expectedMethod!=null) {
@@ -76,7 +76,7 @@ class ReflectionTest {
             } else {
                 method.invoke(testObject, value);
             }
-            Assertions.assertEquals(value.charValue(), testObject.getLongPrimitiveValue());
+            Assertions.assertEquals(value, testObject.getLongPrimitiveValue());
             Assertions.assertEquals(expectedMethod.getParameterTypes()[0], testObject.getRegisteredType().getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
@@ -101,7 +101,7 @@ class ReflectionTest {
 
     @ParameterizedTest
     @MethodSource("provideBytePrimitives")
-    void valueBytePrimitiveTest(Byte value) throws InvocationTargetException, IllegalAccessException {
+    void valueBytePrimitiveTest(byte value) throws InvocationTargetException, IllegalAccessException {
         Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, byte.class);
         Method expectedMethod = getMethodForTests(byte.class);
         if (method!=null&&expectedMethod!=null) {
@@ -111,7 +111,7 @@ class ReflectionTest {
             } else {
                 method.invoke(testObject, value);
             }
-            Assertions.assertEquals(value.byteValue(), testObject.getLongPrimitiveValue());
+            Assertions.assertEquals(value, testObject.getLongPrimitiveValue());
             Assertions.assertEquals(expectedMethod.getParameterTypes()[0], testObject.getRegisteredType().getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
@@ -149,7 +149,7 @@ class ReflectionTest {
 
     @ParameterizedTest
     @MethodSource("provideDoublePrimitives")
-    void valueDoublePrimitiveTest(Double value) throws InvocationTargetException, IllegalAccessException {
+    void valueDoublePrimitiveTest(double value) throws InvocationTargetException, IllegalAccessException {
         Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, double.class);
         Method expectedMethod = getMethodForTests(double.class);
         if (method!=null&&expectedMethod!=null) {
@@ -159,7 +159,7 @@ class ReflectionTest {
             } else {
                 method.invoke(testObject, value);
             }
-            Assertions.assertEquals((long) value.doubleValue(), testObject.getLongPrimitiveValue());
+            Assertions.assertEquals((long) value, testObject.getLongPrimitiveValue());
             Assertions.assertEquals(expectedMethod.getParameterTypes()[0], testObject.getRegisteredType().getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
@@ -176,7 +176,7 @@ class ReflectionTest {
 
     @ParameterizedTest
     @MethodSource("provideShortPrimitives")
-    void valueShortPrimitiveTest(Short value) throws InvocationTargetException, IllegalAccessException {
+    void valueShortPrimitiveTest(short value) throws InvocationTargetException, IllegalAccessException {
         Method method = MethodsHandler.getMethod(CLASS_FOR_METHOD_SEARCHING, METHOD_NAME, short.class);
         Method expectedMethod = getMethodForTests(short.class);
         if (method!=null&&expectedMethod!=null){
@@ -186,7 +186,7 @@ class ReflectionTest {
                 } else {
                     method.invoke(testObject,value);
                 }
-                Assertions.assertEquals(value.shortValue(),testObject.getLongPrimitiveValue());
+                Assertions.assertEquals(value,testObject.getLongPrimitiveValue());
                 Assertions.assertEquals(expectedMethod.getParameterTypes()[0],testObject.getRegisteredType().getRegisteredType());
         } else {
             Assertions.assertEquals(expectedMethod,method);
