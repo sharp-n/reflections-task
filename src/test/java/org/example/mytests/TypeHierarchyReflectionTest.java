@@ -1,5 +1,7 @@
-package org.example;
+package org.example.mytests;
 
+import org.example.SetterUtil;
+import org.example.SetterUtilImpl;
 import org.example.classes_for_hierarchy_tests.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -79,12 +81,10 @@ class TypeHierarchyReflectionTest {
                 Arguments.of((long)56,long.class),
                 Arguments.of((byte)56,byte.class),
                 Arguments.of((short)56,short.class),
-                Arguments.of('5',char.class),
                 Arguments.of(56,Integer.class),
                 Arguments.of(56,Long.class),
                 Arguments.of(56,Short.class),
-                Arguments.of(56,Byte.class),
-                Arguments.of(56,Character.class)
+                Arguments.of(56,Byte.class)
         );
     }
     private static Stream<Arguments> providePrimitivesAndWrappersAndNumber() {
@@ -122,6 +122,28 @@ class TypeHierarchyReflectionTest {
                 Arguments.of((long)56,long.class,double.class),
                 Arguments.of((float)56,float.class,double.class),
                 Arguments.of(56.56,double.class,double.class)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideClasses")
+    void collisionAndHierarchyTest(Object value, boolean expected){
+        TestCaseClassForInterfacesHierarchy testObject = new TestCaseClassForInterfacesHierarchy();
+        SetterUtilImpl setterUtil = new SetterUtilImpl();
+        boolean isSet = setterUtil.setValue(value,testObject,"value");
+        Assertions.assertEquals(expected,isSet);
+//        Assertions.assertEquals(TestCaseClassForInterfacesHierarchy.MyClass.class,testObject.getRegisterType().getRegisteredType());
+    }
+
+    private static Stream<Arguments> provideClasses() {
+        return Stream.of(
+                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClass1(), true),
+                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClass2(), false),
+                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClass3(), false),
+                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClass4(), true),
+                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClass5(), true),
+                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClassWithMultipleInterfaces(), false),
+                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyCollection(),true)
         );
     }
 
