@@ -1,5 +1,10 @@
-package org.example;
+package org.example.mytests;
 
+import org.example.ConvertableTypes;
+import org.example.SetterUtil;
+import org.example.SetterUtilImpl;
+import org.example.TestObject;
+import org.example.classes_for_hierarchy_tests.TestCaseClassForInterfacesHierarchy;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,8 +13,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,14 +22,14 @@ class SetValueTest {
     SetterUtil setterUtil = new SetterUtilImpl();
 
 
-    @Test
-    void test(){
-        SetterUtil setterUtil = new SetterUtilImpl();
-        int i = 10;
-        TestObject testObject = new TestObject();
-        System.out.println(setterUtil.setValue(i,testObject,"LongPrimitiveValue"));
-        System.out.println(testObject.getRegisteredType());
-    }
+//    @Test
+//    void test(){
+//        SetterUtil setterUtil = new SetterUtilImpl();
+//        int i = 10;
+//        TestObject testObject = new TestObject();
+//        System.out.println(setterUtil.setValue(i,testObject,"LongPrimitiveValue"));
+//        System.out.println(testObject.getRegisteredType());
+//    }
 
     @Test
     void setIntPrimitiveValueTest(){
@@ -36,18 +40,18 @@ class SetValueTest {
         if(expectedTypeOfValue!=null) {
             Assertions.assertTrue(setterUtil.setValue(intValue, testObject, "LongPrimitiveValue"));
         }
-        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType());
+        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType().getRegisteredType());
     }
 
     void printMessage(Class<?> expectedTypeOfValue, TestObject testObject){
         if(expectedTypeOfValue!=null) {
             System.out.println(
                     "Expected: " + expectedTypeOfValue.getName() +
-                            " Provided: " + testObject.getRegisteredType());
+                            " Provided: " + testObject.getRegisteredType().getRegisteredType());
         } else {
             System.out.println(
                     "Expected: " + null +
-                            " Provided: " + testObject.getRegisteredType());
+                            " Provided: " + testObject.getRegisteredType().getRegisteredType());
         }
     }
 
@@ -60,7 +64,7 @@ class SetValueTest {
         if(expectedTypeOfValue!=null) {
             Assertions.assertTrue(setterUtil.setValue(shortValue, testObject, "LongPrimitiveValue"));
         }
-        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType());
+        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType().getRegisteredType());
     }
 
     @Test
@@ -72,7 +76,7 @@ class SetValueTest {
         if(expectedTypeOfValue!=null) {
             Assertions.assertTrue(setterUtil.setValue(charValue, testObject, "LongPrimitiveValue"));
         }
-        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType());
+        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType().getRegisteredType());
     }
 
     @Test
@@ -84,7 +88,7 @@ class SetValueTest {
         if(expectedTypeOfValue!=null) {
             Assertions.assertTrue(setterUtil.setValue(longValue, testObject, "LongPrimitiveValue"));
         }
-        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType());
+        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType().getRegisteredType());
     }
     @Test
     void setFloatPrimitiveValueTest(){
@@ -95,7 +99,7 @@ class SetValueTest {
         if(expectedTypeOfValue!=null) {
             Assertions.assertTrue(setterUtil.setValue(value, testObject, "LongPrimitiveValue"));
         }
-        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType());
+        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType().getRegisteredType());
     }
     @Test
     void setDoublePrimitiveValueTest(){
@@ -106,11 +110,11 @@ class SetValueTest {
         if(expectedTypeOfValue!=null) {
             Assertions.assertTrue(setterUtil.setValue(value, testObject, "LongPrimitiveValue"));
         }
-        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType());
+        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType().getRegisteredType());
     }
     @Test
     void setBooleanPrimitiveValueTest(){
-        boolean value = true; // todo add boolean to convertable types
+        boolean value = true;
         TestObject testObject = new TestObject();
 
         Class<?> expectedTypeOfValue = getExpectedTypeOfValue(boolean.class);
@@ -118,8 +122,7 @@ class SetValueTest {
         if(expectedTypeOfValue!=null) {
             Assertions.assertTrue(setterUtil.setValue(value, testObject, "LongPrimitiveValue"));
         }
-        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType());
-
+        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType().getRegisteredType());
     }
 
     @ParameterizedTest
@@ -128,7 +131,7 @@ class SetValueTest {
         TestObject testObject = new TestObject();
         setterUtil.setValue(object, testObject, "LongPrimitiveValue");
         Class<?> expectedTypeOfValue = getExpectedTypeOfValue(typeOfValue);
-        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType());
+        Assertions.assertEquals(expectedTypeOfValue, testObject.getRegisteredType().getRegisteredType());
         printMessage(expectedTypeOfValue, testObject);
         printMessage(null,testObject);
     }
@@ -153,13 +156,13 @@ class SetValueTest {
         setterUtil.setValue(null, testObject, "LongPrimitiveValue", typeOfValue);
         Class<?> expectedTypeOfValue = getExpectedTypeOfValue(typeOfValue);
         printMessage(expectedTypeOfValue, testObject);
-        Assertions.assertEquals(expectedTypeOfValue,testObject.getRegisteredType());
+        Assertions.assertEquals(expectedTypeOfValue,testObject.getRegisteredType().getRegisteredType());
     }
 
     private static @NotNull Stream<Arguments> provideNullObjectsAndTypes() {
         return Stream.of(
-                Arguments.of(Boolean.class),
-                Arguments.of(Byte.class),
+                Arguments.of(Boolean.class), // todo check it
+                Arguments.of(Byte.class), // todo check it
                 Arguments.of(Short.class),
                 Arguments.of(Character.class),
                 Arguments.of(Integer.class),
@@ -193,6 +196,29 @@ class SetValueTest {
         }
         return null;
     }
+
+    @ParameterizedTest
+    @MethodSource("provideCollections")
+    void collectionsTest(Collection<?> collection, Class<?> expectedTypeOfSetterValue){
+        TestCaseClassForInterfacesHierarchy testObject = new TestCaseClassForInterfacesHierarchy();
+        setterUtil.setValue(collection,testObject,"value");
+        Assertions.assertEquals(expectedTypeOfSetterValue, testObject.getRegisterType().getRegisteredType());
+    }
+
+    private static @NotNull Stream<Arguments> provideCollections() {
+        return Stream.of(
+                Arguments.of(new ArrayList<>(Arrays.asList("1","2","3")),ArrayList.class),
+                Arguments.of(new HashSet<>(),Set.class),
+                Arguments.of(new LinkedList<String>(),Collection.class),
+                Arguments.of(new PriorityQueue<>(),Collection.class)
+        );
+    }
+
+    // todo write tests for enums
+
+    // todo write tests for collections
+
+    // todo write tests for null checking
 
 
 }
