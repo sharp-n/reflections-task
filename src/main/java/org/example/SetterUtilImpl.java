@@ -2,6 +2,7 @@ package org.example;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -94,9 +95,16 @@ public class SetterUtilImpl implements SetterUtil {
                 .collect(Collectors.toList());
 
         Method method = null;
-        while(method==null&&valueType!=null){
+        Class<?> bufferValueType = valueType;
+        while(method==null&&bufferValueType!=null){
             method = findMatches(valueType,methods);
-            valueType = valueType.getSuperclass();
+            bufferValueType = bufferValueType.getSuperclass();
+        }
+        if(method == null&&valueType != null && !valueType.isPrimitive()) {
+            ConvertableValueType type = findConvertableType(valueType, methods);
+            if (type != null) {
+                method = type.getMethod();
+            }
         }
         return method;
     }
@@ -145,7 +153,7 @@ public class SetterUtilImpl implements SetterUtil {
     private Method getSetterIfCanBeNull(Object value,Object targetObject, String propertyName, Class<?> valueType){
         if(value==null&&valueType.isPrimitive()) {
             return getSetterIfValueIsNullAndPrimitive(targetObject,propertyName,valueType);
-        } else{
+        } else {
             return getSetter(targetObject, propertyName, valueType);
         }
     }
@@ -172,11 +180,18 @@ public class SetterUtilImpl implements SetterUtil {
                 method.invoke(targetObject, value); // todo refactor
             }
             return true;
+
         } catch (InvocationTargetException | IllegalAccessException exception){
             exception.printStackTrace();
             return false;
         }
     }
+
+//    private boolean invokeSetterIfTheresInheritance(ConvertableValueType convertableValueType, Object targetObject, Object value) throws InvocationTargetException, IllegalAccessException {
+//        convertableValueType.getMethod().invoke(targetObject,value);
+//        return true;
+//    }
+
 
     private boolean invokeMethodIfPrimitive(Method method, Object targetObject, Object value, Class<?> typeOfValue) throws InvocationTargetException, IllegalAccessException {
         if(typeOfValue.equals(byte.class)){
@@ -219,6 +234,89 @@ public class SetterUtilImpl implements SetterUtil {
             return false;
         }
         return true;
+    }
+
+    private ConvertableValueType findConvertableType(Class<?> typeOfValue, List<Method> methods){
+        ConvertableValueType convertableParentClassType = findClassesHierarchy(typeOfValue, methods);
+        ConvertableValueType convertableInterfaceType = findInterfacesHierarchy(typeOfValue,methods);
+        return getTypeWithMinDistance(convertableInterfaceType,convertableParentClassType);
+    }
+
+    private ConvertableValueType findInterfacesHierarchy(Class<?> valueType, List<Method> methods){
+        Method resultMethod = null;
+        int collision = 0;
+        int distance = 0;
+        Class<?> [] interfaceType = valueType.getInterfaces();
+        for (Method method : methods) {
+            distance = 0;
+            for(Class<?> typeOfInterface : interfaceType){
+                distance++;
+                if(method.getParameterTypes()[0].equals(typeOfInterface)){
+                    collision++;
+                    resultMethod = method;
+                    valueType = typeOfInterface;
+                } else{
+                    for(Class<?> type : typeOfInterface.getInterfaces()){
+                        ConvertableValueType foundType = findInterfacesHierarchy(type,methods);
+                        if(foundType!=null){
+                            return foundType;
+                        }
+                    }
+                }
+            }
+        }
+        if(collision==1){
+            return new ConvertableValueType(valueType,distance,resultMethod);
+        }
+        return null;
+    }
+
+    private ConvertableValueType findClassesHierarchy(Class<?> valueType, List<Method> methods){
+        List<Class<?>> superclasses = new ArrayList<>();
+        Class<?> superclass = valueType;
+        while(superclass != null) {
+            superclass = superclass.getSuperclass();
+            superclasses.add(superclass);
+        }
+        for (Class<?> superclassType: superclasses) {
+            for (Method method : methods) {
+                int distance = 0;
+                distance++;
+                if (method.getParameterTypes()[0].equals(superclassType)) {
+                    return new ConvertableValueType(superclassType, distance, method);
+                } else {
+                    if(superclassType!=null) {
+                        Class<?>[] interfaces = superclassType.getInterfaces();
+                        for (Class<?> anInterface : interfaces) {
+                            ConvertableValueType convertableValueType = findInterfacesHierarchy(anInterface,methods);
+                            if (convertableValueType!=null){
+                                convertableValueType.setDistance(distance+convertableValueType.getDistance());
+                                return convertableValueType;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private ConvertableValueType getTypeWithMinDistance(ConvertableValueType firstValue, ConvertableValueType secondValue){
+        if(firstValue==secondValue){
+            return null;
+        }
+        if(firstValue==null){
+            return secondValue;
+        }
+        if(secondValue==null){
+            return firstValue;
+        }
+        if(firstValue.getDistance()>secondValue.getDistance()){
+            return firstValue;
+        } else {
+            return secondValue;
+        }
+
     }
 
 }
