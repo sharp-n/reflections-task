@@ -22,6 +22,10 @@ public class TestObject {
         this.longPrimitiveValue = longPrimitiveValue;
     }
 
+    public void setLongPrimitiveValue(boolean longPrimitiveValue) {
+        registeredType.registerSetter(boolean.class);
+        this.longPrimitiveValue = 1;
+    }
 
     public void setLongPrimitiveValue(int intPrimitiveValue) {
         registeredType.registerSetter(int.class);
