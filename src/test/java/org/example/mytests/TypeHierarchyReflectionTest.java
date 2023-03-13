@@ -128,7 +128,7 @@ class TypeHierarchyReflectionTest {
     @ParameterizedTest
     @MethodSource("provideClasses")
     void collisionAndHierarchyTest(Object value, boolean expected){
-        TestCaseClassForInterfacesHierarchy testObject = new TestCaseClassForInterfacesHierarchy();
+        TestCaseClassForHierarchyChecking testObject = new TestCaseClassForHierarchyChecking();
         SetterUtilImpl setterUtil = new SetterUtilImpl();
         boolean isSet = setterUtil.setValue(value,testObject,"value");
         Assertions.assertEquals(expected,isSet);
@@ -137,13 +137,13 @@ class TypeHierarchyReflectionTest {
 
     private static Stream<Arguments> provideClasses() {
         return Stream.of(
-                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClass1(), true),
-                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClass2(), false),
-                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClass3(), false),
-                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClass4(), true),
-                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClass5(), true),
-                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyClassWithMultipleInterfaces(), false),
-                Arguments.of(new TestCaseClassForInterfacesHierarchy.MyCollection(),true)
+                Arguments.of(new TestCaseClassForHierarchyChecking.MyClass1(), true),
+                Arguments.of(new TestCaseClassForHierarchyChecking.MyClass2(), false),
+                Arguments.of(new TestCaseClassForHierarchyChecking.MyClass3(), false),
+                Arguments.of(new TestCaseClassForHierarchyChecking.MyClass4(), true),
+                Arguments.of(new TestCaseClassForHierarchyChecking.MyClass5(), true),
+                Arguments.of(new TestCaseClassForHierarchyChecking.MyClassWithMultipleInterfaces(), false),
+                Arguments.of(new TestCaseClassForHierarchyChecking.MyCollection(),true)
         );
     }
 

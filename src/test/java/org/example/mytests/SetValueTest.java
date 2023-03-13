@@ -4,7 +4,7 @@ import org.example.ConvertableTypes;
 import org.example.SetterUtil;
 import org.example.SetterUtilImpl;
 import org.example.TestObject;
-import org.example.classes_for_hierarchy_tests.TestCaseClassForInterfacesHierarchy;
+import org.example.classes_for_hierarchy_tests.TestCaseClassForHierarchyChecking;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -200,7 +200,7 @@ class SetValueTest {
     @ParameterizedTest
     @MethodSource("provideCollections")
     void collectionsTest(Collection<?> collection, Class<?> expectedTypeOfSetterValue){
-        TestCaseClassForInterfacesHierarchy testObject = new TestCaseClassForInterfacesHierarchy();
+        TestCaseClassForHierarchyChecking testObject = new TestCaseClassForHierarchyChecking();
         setterUtil.setValue(collection,testObject,"value");
         Assertions.assertEquals(expectedTypeOfSetterValue, testObject.getRegisterType().getRegisteredType());
     }
