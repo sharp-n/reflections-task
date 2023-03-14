@@ -58,4 +58,31 @@ public class TestCaseClassForHierarchyChecking {
     public void setValue(Set<?> value) {
         registerType.registerSetter(Set.class);
     }
+
+    public void setValue(byte value){
+        registerType.registerSetter(byte.class);
+    }
+    public void setValue(short value){
+        registerType.registerSetter(short.class);
+    }
+    public void setValue(char value){
+        registerType.registerSetter(char.class);
+    }
+    public void setValue(int value){
+        registerType.registerSetter(int.class);
+    }
+    public void setValue(long value){
+        registerType.registerSetter(long.class);
+    }public void setValue(float value){
+        registerType.registerSetter(float.class);
+    }
+
+    public void setValue(double value){
+        registerType.registerSetter(double.class);
+    }
+
+    public void setValue(boolean value){
+        registerType.registerSetter(boolean.class);
+    }
+
 }
