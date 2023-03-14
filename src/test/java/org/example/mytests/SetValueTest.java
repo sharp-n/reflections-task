@@ -1,10 +1,9 @@
 package org.example.mytests;
 
-import org.example.ConvertableTypes;
-import org.example.SetterUtil;
-import org.example.SetterUtilImpl;
-import org.example.TestObject;
+import org.example.*;
+import org.example.classes_for_hierarchy_tests.TestCaseClassEmpty;
 import org.example.classes_for_hierarchy_tests.TestCaseClassForHierarchyChecking;
+import org.example.classes_for_hierarchy_tests.TestCaseClassWithoutPrimitives;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,6 +20,7 @@ class SetValueTest {
 
     SetterUtil setterUtil = new SetterUtilImpl();
 
+    private static TestCaseClassWithoutPrimitives nullTestObject = null;
 
 //    @Test
 //    void test(){
@@ -33,7 +33,7 @@ class SetValueTest {
 
     @Test
     void setIntPrimitiveValueTest(){
-        int intValue = 10;
+        int intValue = 1;
         TestObject testObject = new TestObject();
         Class<?> expectedTypeOfValue = getExpectedTypeOfValue(int.class);
         printMessage(expectedTypeOfValue,testObject);
@@ -57,7 +57,7 @@ class SetValueTest {
 
     @Test
     void setShortPrimitiveValueTest(){
-        short shortValue = 10;
+        short shortValue = 2;
         TestObject testObject = new TestObject();
         Class<?> expectedTypeOfValue = getExpectedTypeOfValue(short.class);
         printMessage(expectedTypeOfValue,testObject);
@@ -69,7 +69,7 @@ class SetValueTest {
 
     @Test
     void setCharPrimitiveValueTest(){
-        char charValue = 10;
+        char charValue = 3;
         TestObject testObject = new TestObject();
         Class<?> expectedTypeOfValue = getExpectedTypeOfValue(char.class);
         printMessage(expectedTypeOfValue,testObject);
@@ -81,7 +81,7 @@ class SetValueTest {
 
     @Test
     void setLongPrimitiveValueTest(){
-        long longValue = 10;
+        long longValue = 4;
         TestObject testObject = new TestObject();
         Class<?> expectedTypeOfValue = getExpectedTypeOfValue(long.class);
         printMessage(expectedTypeOfValue,testObject);
@@ -92,7 +92,7 @@ class SetValueTest {
     }
     @Test
     void setFloatPrimitiveValueTest(){
-        float value = 10;
+        float value = 5;
         TestObject testObject = new TestObject();
         Class<?> expectedTypeOfValue = getExpectedTypeOfValue(float.class);
         printMessage(expectedTypeOfValue,testObject);
@@ -103,7 +103,7 @@ class SetValueTest {
     }
     @Test
     void setDoublePrimitiveValueTest(){
-        double value = 10;
+        double value = 6;
         TestObject testObject = new TestObject();
         Class<?> expectedTypeOfValue = getExpectedTypeOfValue(double.class);
         printMessage(expectedTypeOfValue,testObject);
@@ -139,24 +139,21 @@ class SetValueTest {
     private static Stream<Arguments> provideObjectsAndTypes() {
         return Stream.of(
                 Arguments.of(true, Boolean.class),
-                Arguments.of((byte) 3, Byte.class),
-                Arguments.of((short) 4, Short.class),
-                Arguments.of((char) 5, Character.class),
-                Arguments.of(6, Integer.class),
-                Arguments.of((long) 7, Long.class),
-                Arguments.of((float) 8, Float.class),
-                Arguments.of((double) 9, Double.class)
+                Arguments.of((byte) 9, Byte.class),
+                Arguments.of((short) 10, Short.class),
+                Arguments.of((char) 11, Character.class),
+                Arguments.of(12, Integer.class),
+                Arguments.of((long) 13, Long.class),
+                Arguments.of((float) 14, Float.class),
+                Arguments.of((double) 15, Double.class)
         );
     }
 
     @ParameterizedTest
     @MethodSource("provideNullObjectsAndTypes")
     void setNullObjectTest(Class<?> typeOfValue){
-        TestObject testObject = new TestObject();
-        setterUtil.setValue(null, testObject, "LongPrimitiveValue", typeOfValue);
-        Class<?> expectedTypeOfValue = getExpectedTypeOfValue(typeOfValue);
-        printMessage(expectedTypeOfValue, testObject);
-        Assertions.assertEquals(expectedTypeOfValue,testObject.getRegisteredType().getRegisteredType());
+        TestCaseClassWithoutPrimitives testObject = new TestCaseClassWithoutPrimitives();
+        Assertions.assertTrue(setterUtil.setValue(null, testObject, "LongPrimitiveValue", typeOfValue));
     }
 
     private static @NotNull Stream<Arguments> provideNullObjectsAndTypes() {
@@ -218,7 +215,104 @@ class SetValueTest {
 
     // todo write tests for collections
 
-    // todo write tests for null checking
+    @ParameterizedTest
+    @MethodSource("provideNulls")
+    void nullWithNullValuePossibleTest(Object targetObject, String propertyName, Class<?> typeOfValue){
+        Assertions.assertFalse(setterUtil.setValue(22,targetObject,propertyName,typeOfValue));
+    }
+
+    private static @NotNull Stream<Arguments> provideNulls() {
+        return Stream.of(
+                Arguments.of(nullTestObject, "value", Integer.class),
+                Arguments.of(null, "value", Integer.class),
+                Arguments.of(new TestCaseClassWithoutPrimitives(),"", Integer.class),
+                Arguments.of(new TestCaseClassWithoutPrimitives(),null, Integer.class),
+                Arguments.of(new TestCaseClassWithoutPrimitives()," ", Integer.class),
+                Arguments.of(new TestCaseClassWithoutPrimitives(),new String(), Integer.class),
+                Arguments.of(new TestCaseClassWithoutPrimitives(),"value",null),
+                Arguments.of(new TestCaseClassEmpty(),"value",Integer.class)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideNulls")
+    void nullMethodWithObjectWithoutNullValuePossibleTest(Object targetObject, String propertyName){
+        Integer value = 1;
+        Assertions.assertFalse(setterUtil.setValue(value,targetObject,propertyName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideNulls")
+    void nullMethodWithPrimitiveByteTest(Object targetObject, String propertyName){
+        Assertions.assertFalse(setterUtil.setValue((byte)16,targetObject,propertyName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideNulls")
+    void nullMethodWithPrimitiveShortTest(Object targetObject, String propertyName){
+        Assertions.assertFalse(setterUtil.setValue((short)17,targetObject,propertyName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideNulls")
+    void nullMethodWithPrimitiveCharTest(Object targetObject, String propertyName){
+        Assertions.assertFalse(setterUtil.setValue((char)18,targetObject,propertyName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideNulls")
+    void nullMethodWithPrimitiveIntTest(Object targetObject, String propertyName){
+        Assertions.assertFalse(setterUtil.setValue(19,targetObject,propertyName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideNulls")
+    void nullMethodWithPrimitiveLongTest(Object targetObject, String propertyName){
+        Assertions.assertFalse(setterUtil.setValue((long)20,targetObject,propertyName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideNulls")
+    void nullMethodWithPrimitiveFloatTest(Object targetObject, String propertyName){
+        Assertions.assertFalse(setterUtil.setValue((float)21,targetObject,propertyName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideNulls")
+    void nullMethodWithPrimitiveDoubleTest(Object targetObject, String propertyName){
+        Assertions.assertFalse(setterUtil.setValue((double) 22,targetObject,propertyName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideNulls")
+    void nullMethodWithPrimitiveBooleanTest(Object targetObject, String propertyName){
+        Assertions.assertFalse(setterUtil.setValue(true,targetObject,propertyName));
+    }
+
+    @ParameterizedTest
+    @MethodSource("providePrimitiveTypes")
+    void setNullObjectValueToSetterWithPrimitiveTest(Class<?> typeOfValue,Object value){
+        Assertions.assertFalse(setterUtil.setValue(value,new TestCaseClassForHierarchyChecking(),"value", typeOfValue));
+    }
+
+    private static @NotNull Stream<Arguments> providePrimitiveTypes() {
+        return Stream.of(
+                Arguments.of(byte.class,null),
+                Arguments.of(short.class, null),
+                Arguments.of(char.class, null),
+                Arguments.of(int.class, null),
+                Arguments.of(long.class, null),
+                Arguments.of(float.class, null),
+                Arguments.of(double.class, null),
+                Arguments.of(boolean.class, null)
+                );
+    }
+
+    @ParameterizedTest
+    @MethodSource("providePrimitiveTypes")
+    void setNullValueToSetterWithPrimitiveTest(Class<?> typeOfValue){
+        Assertions.assertFalse(setterUtil.setValue(null,new TestCaseClassForHierarchyChecking(),"value", typeOfValue));
+    }
 
 
 }
