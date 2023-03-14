@@ -1,5 +1,6 @@
 package org.example.mytests;
 
+import org.example.RegisterType;
 import org.example.SetterUtil;
 import org.example.SetterUtilImpl;
 import org.example.classes_for_hierarchy_tests.*;
@@ -42,10 +43,11 @@ class TypeHierarchyReflectionTest {
 
     @ParameterizedTest
     @MethodSource("providePrimitivesAndWrappersAndNumber")
-    void primitivesAndWrappersAneNumberInClassWithoutNumberTest(Object value, Class<?> typeOfValue) throws NoSuchMethodException {
+    void primitivesAndWrappersAndNumberInClassWithoutNumberTest(Object value, Class<?> typeOfValue) throws NoSuchMethodException {
         SetterUtil setterUtil = new SetterUtilImpl();
         TestCaseClassWithoutNumber testCaseClassWithoutNumber = new TestCaseClassWithoutNumber();
         setterUtil.setValue(value,testCaseClassWithoutNumber,"LongPrimitiveValue",typeOfValue);
+        printMessage(Object.class,testCaseClassWithoutNumber.getRegisteredType(),typeOfValue);
         Assertions.assertEquals(Object.class,testCaseClassWithoutNumber.getRegisteredType().getRegisteredType());
     }
 
@@ -145,6 +147,20 @@ class TypeHierarchyReflectionTest {
                 Arguments.of(new TestCaseClassForHierarchyChecking.MyClassWithMultipleInterfaces(), false),
                 Arguments.of(new TestCaseClassForHierarchyChecking.MyCollection(),true)
         );
+    }
+
+
+    void printMessage(Class<?> expectedTypeOfValue, RegisterType testObject, Class<?> originalTypeOfValue){
+        if(expectedTypeOfValue!=null) {
+            System.out.println(
+                    "Expected: " + expectedTypeOfValue.getName() +
+                            " Provided: " + testObject.getRegisteredType() +
+                            " Original type of value: " + originalTypeOfValue.getName());
+        } else {
+            System.out.println(
+                    "Expected: " + null +
+                            " Provided: " + testObject.getRegisteredType());
+        }
     }
 
 }
