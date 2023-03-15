@@ -1,9 +1,7 @@
 package org.example.mytests;
 
 import org.example.*;
-import org.example.classes_for_hierarchy_tests.TestCaseClassEmpty;
-import org.example.classes_for_hierarchy_tests.TestCaseClassForHierarchyChecking;
-import org.example.classes_for_hierarchy_tests.TestCaseClassWithoutPrimitives;
+import org.example.classes_for_hierarchy_tests.*;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -194,26 +192,7 @@ class SetValueTest {
         return null;
     }
 
-    @ParameterizedTest
-    @MethodSource("provideCollections")
-    void collectionsTest(Collection<?> collection, Class<?> expectedTypeOfSetterValue){
-        TestCaseClassForHierarchyChecking testObject = new TestCaseClassForHierarchyChecking();
-        setterUtil.setValue(collection,testObject,"value");
-        Assertions.assertEquals(expectedTypeOfSetterValue, testObject.getRegisterType().getRegisteredType());
-    }
-
-    private static @NotNull Stream<Arguments> provideCollections() {
-        return Stream.of(
-                Arguments.of(new ArrayList<>(Arrays.asList("1","2","3")),ArrayList.class),
-                Arguments.of(new HashSet<>(),Set.class),
-                Arguments.of(new LinkedList<String>(),Collection.class),
-                Arguments.of(new PriorityQueue<>(),Collection.class)
-        );
-    }
-
-    // todo write tests for enums
-
-    // todo write tests for collections
+    // ===================================== NULL TESTS ==================================================
 
     @ParameterizedTest
     @MethodSource("provideNulls")
@@ -312,6 +291,80 @@ class SetValueTest {
     @MethodSource("providePrimitiveTypes")
     void setNullValueToSetterWithPrimitiveTest(Class<?> typeOfValue){
         Assertions.assertFalse(setterUtil.setValue(null,new TestCaseClassForHierarchyChecking(),"value", typeOfValue));
+    }
+
+    // ============================================= COLLECTIONS TESTS ===================================================================
+
+    @ParameterizedTest
+    @MethodSource("provideCollections")
+    void setCollectionTest(Collection<?> collection){
+        TestCaseCollections.CollectionsSetterWithGenericDefinedType obj = new TestCaseCollections.CollectionsSetterWithGenericDefinedType();
+        boolean isSet = setterUtil.setValue(collection,obj,"value");
+        RegisterType registerType = obj.getRegisterType();
+        System.out.println(registerType.getRegisteredType().getName());
+        Assertions.assertTrue(isSet);
+        Assertions.assertEquals(collection.getClass(),obj.getRegisterType().getRegisteredType());
+    }
+
+    private static @NotNull Stream<Arguments> provideCollections() {
+        return Stream.of(
+                Arguments.of(new Stack<>()),
+                Arguments.of(new LinkedList<>()),
+                Arguments.of(new ArrayList<>()),
+                Arguments.of(new Vector<>()),
+                Arguments.of(new ArrayDeque<>()),
+                Arguments.of(new TreeSet<>()),
+                Arguments.of(new LinkedHashSet<String>()),
+                Arguments.of(new HashSet<>()),
+                Arguments.of(new ArrayList<>(Arrays.asList("1","2"))) // HOW???...
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideCollections")
+    void setCollectionTest2(Collection<?> collection){
+        TestCaseCollections.CollectionsSetterWithGenericType<Integer> obj = new TestCaseCollections.CollectionsSetterWithGenericType<>();
+        boolean isSet = setterUtil.setValue(collection,obj,"value");
+        RegisterType registerType = obj.getRegisterType();
+        System.out.println(registerType.getRegisteredType().getName());
+        Assertions.assertTrue(isSet);
+        Assertions.assertEquals(collection.getClass(),obj.getRegisterType().getRegisteredType());
+    }
+
+    // todo write tests for collections
+
+    // ================================================= Enums ========================================================
+
+    @ParameterizedTest
+    @MethodSource("provideEnumsWithInvoked")
+    void enumInvokeTest(Enum<?> testEnum, boolean expectedInvoked){
+        TestCaseEnums obj = new TestCaseEnums();
+        boolean isInvoked = setterUtil.setValue(testEnum,obj,"value");
+        Assertions.assertEquals(expectedInvoked,isInvoked);
+    }
+
+    private static @NotNull Stream<Arguments> provideEnumsWithInvoked() {
+        return Stream.of(
+                Arguments.of(TestCaseEnums.TestEnum.TEST_ENUM, true),
+                Arguments.of(TestCaseEnums.TestEnum2.TEST_ENUM_INTERFACE, true),
+                Arguments.of(TestCaseEnums.TestEnum3.TEST_ENUM_INTERFACE, false)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideEnumsWithTypeOfExpectedSetterTypeOfValue")
+    void enumTypeOfSetterValueTest(Enum<?> testEnum,Class<?> expectedTypeOfSetterValue){
+        TestCaseEnums obj = new TestCaseEnums();
+        setterUtil.setValue(testEnum,obj,"value");
+        Assertions.assertEquals(expectedTypeOfSetterValue,obj.getRegisterType().getRegisteredType());
+    }
+
+    private static @NotNull Stream<Arguments> provideEnumsWithTypeOfExpectedSetterTypeOfValue() {
+        return Stream.of(
+                Arguments.of(TestCaseEnums.TestEnum.TEST_ENUM, TestCaseEnums.TestEnum.class),
+                Arguments.of(TestCaseEnums.TestEnum2.TEST_ENUM_INTERFACE, TestCaseEnums.InterfaceForEnum.class),
+                Arguments.of(TestCaseEnums.TestEnum3.TEST_ENUM_INTERFACE, null)
+        );
     }
 
 
