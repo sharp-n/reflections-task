@@ -2,9 +2,42 @@ package org.example.classes_for_hierarchy_tests;
 
 import org.example.RegisterType;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class TestCaseCollections {
+
+    public static class GenericsTest{
+
+        public static void main(String [] args){
+            new GenericsTest().setValue("2");
+        }
+
+        public <T> void setValue(T value){
+            value.getClass().getGenericSuperclass();
+            System.out.println(value.getClass());
+        }
+
+    }
+
+    public static class CollectionsTest{
+
+        public static void main(String [] args){
+            setValue(new ArrayList<>());
+        }
+
+        public static void setValue(AbstractList<?> value){
+            System.out.println(AbstractList.class.getName());
+        }
+
+
+        public static void setValue(List<?> value){
+            System.out.println(List.class.getName());
+        }
+
+
+    }
 
     public static class CollectionsSetter{
         RegisterType registerType = new RegisterType();
@@ -48,7 +81,6 @@ public class TestCaseCollections {
         public static void main(String [] args){
             CollectionsSetterWithGenericDefinedType obj = new CollectionsSetterWithGenericDefinedType();
 //            obj.setValue(new ArrayList<>(Arrays.asList("1","2")));
-
         }
 
         RegisterType registerType = new RegisterType();

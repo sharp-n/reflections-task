@@ -4,11 +4,13 @@ import org.example.RegisterType;
 import org.example.SetterUtil;
 import org.example.SetterUtilImpl;
 import org.example.classes_for_hierarchy_tests.*;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.*;
 import java.util.stream.Stream;
 
 class TypeHierarchyReflectionTest {
@@ -161,6 +163,24 @@ class TypeHierarchyReflectionTest {
                     "Expected: " + null +
                             " Provided: " + testObject.getRegisteredType());
         }
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideCollections")
+    void collectionsTest(Collection<?> collection, Class<?> expectedTypeOfSetterValue){
+        SetterUtilImpl setterUtil = new SetterUtilImpl();
+        TestCaseClassForHierarchyChecking testObject = new TestCaseClassForHierarchyChecking();
+        setterUtil.setValue(collection,testObject,"value");
+        Assertions.assertEquals(expectedTypeOfSetterValue, testObject.getRegisterType().getRegisteredType());
+    }
+
+    private static @NotNull Stream<Arguments> provideCollections() {
+        return Stream.of(
+                Arguments.of(new ArrayList<String>(){{add("1");add("2");}},ArrayList.class),
+                Arguments.of(new HashSet<String>(){{add("3");}}, Set.class),
+                Arguments.of(new LinkedList<String>(),Collection.class),
+                Arguments.of(new PriorityQueue<>(),Collection.class)
+        );
     }
 
 }
